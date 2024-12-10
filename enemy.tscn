@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://bntu28tbupwou"]
+
+[ext_resource type="Texture2D" uid="uid://ce55g21s7pjl2" path="res://Assets/Swordsman_IdleAtk.png" id="1_7tr2r"]
+[ext_resource type="Script" path="res://pickup_spawner.gd" id="1_mcn6i"]
+[ext_resource type="PackedScene" uid="uid://laro6v7wj0eb" path="res://pickup.tscn" id="2_xjhfa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p3hgy"]
+size = Vector2(20, 32)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_faiyd"]
+
+[node name="Enemy" type="CharacterBody2D"]
+position = Vector2(0, -18)
+script = ExtResource("1_mcn6i")
+pickup = ExtResource("2_xjhfa")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_7tr2r")
+region_enabled = true
+region_rect = Rect2(0, 0, 40, 40)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_p3hgy")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_faiyd")

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://c6mn5j1xe8tav"]
+
+[ext_resource type="Script" path="res://pickup_spawner.gd" id="1_nryc6"]
+[ext_resource type="PackedScene" uid="uid://laro6v7wj0eb" path="res://pickup.tscn" id="2_ub30x"]
+
+[node name="Pickup_spawner" type="Node2D"]
+position = Vector2(341, 56)
+script = ExtResource("1_nryc6")
+pickup = ExtResource("2_ub30x")
