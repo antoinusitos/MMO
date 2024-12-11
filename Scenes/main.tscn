@@ -1,17 +1,17 @@
 [gd_scene load_steps=18 format=3 uid="uid://cvhkkbfyt4mki"]
 
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_yntn6"]
-[ext_resource type="PackedScene" uid="uid://wee5jjpvgu41" path="res://player.tscn" id="2_6527c"]
 [ext_resource type="Script" path="res://Scripts/Multiplayer/Networks/network_manager.gd" id="2_ocqd3"]
 [ext_resource type="Texture2D" uid="uid://bw5fbn7v7mf0d" path="res://Assets/Hana Caraka - Topdown Tileset [sample]/Tileset/Spring - simplified.png" id="2_sdcqh"]
 [ext_resource type="Texture2D" uid="uid://ddvejmtuo8mtu" path="res://icon.svg" id="3_7nj7w"]
 [ext_resource type="Texture2D" uid="uid://cuoy20wv5m7bf" path="res://Assets/Hana Caraka - Topdown Tileset [sample]/Props/Props-All.png" id="3_y44ey"]
-[ext_resource type="PackedScene" uid="uid://bbfe5slu6noxj" path="res://tree.tscn" id="5_ajyjg"]
 [ext_resource type="Texture2D" uid="uid://bmo413356u0a4" path="res://Assets/tilemap_packed.png" id="5_gmubk"]
 [ext_resource type="Texture2D" uid="uid://cpr76uicp0j5o" path="res://Assets/Hana Caraka - Topdown Tileset [sample]/Tileset/Dirt - simplified.png" id="6_fybji"]
-[ext_resource type="PackedScene" uid="uid://bntu28tbupwou" path="res://enemy.tscn" id="7_ryjjo"]
+[ext_resource type="PackedScene" uid="uid://wee5jjpvgu41" path="res://Scenes/player.tscn" id="7_dlsi6"]
 [ext_resource type="PackedScene" uid="uid://b0n2xkcyql2ru" path="res://Scenes/house1.tscn" id="8_or2vv"]
+[ext_resource type="PackedScene" uid="uid://bbfe5slu6noxj" path="res://Scenes/tree.tscn" id="10_u5nfb"]
 [ext_resource type="PackedScene" uid="uid://cr4fgaaoftllg" path="res://Scenes/quest_giver.tscn" id="12_hg01n"]
+[ext_resource type="PackedScene" uid="uid://bntu28tbupwou" path="res://Scenes/enemy.tscn" id="12_u2ona"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_37wuy"]
 texture = ExtResource("2_sdcqh")
@@ -348,55 +348,63 @@ layer_0/tile_data = PackedInt32Array(-262149, 65536, 1, -196613, 65536, 1, -1310
 layer_1/name = "Top"
 layer_1/tile_data = PackedInt32Array(393208, 458753, 0, 458744, 458753, 1, 524280, 458753, 2, 393209, 524289, 0, 458745, 524289, 1, 524281, 524289, 2, 851965, 458753, 0, 917501, 458753, 1, 983037, 458753, 2, 851966, 524289, 0, 917502, 524289, 1, 983038, 524289, 2, 720915, 458753, 0, 786451, 458753, 1, 851987, 458753, 2, 720916, 524289, 0, 786452, 524289, 1, 851988, 524289, 2, -65511, 458753, 0, 25, 458753, 1, 65561, 458753, 2, -65510, 524289, 0, 26, 524289, 1, 65562, 524289, 2, -327666, 458753, 0, -262130, 458753, 1, -196594, 458753, 2, -327665, 524289, 0, -262129, 524289, 1, -196593, 524289, 2, 1114148, 720898, 5, 1179684, 720898, 5, 1245220, 655362, 6, 917540, 720898, 3, 983076, 720898, 4, 1048612, 720898, 5, 720932, 720898, 3, 786468, 720898, 4, 852004, 720898, 5, 524324, 720898, 3, 589860, 720898, 4, 655396, 720898, 5, 327716, 720898, 3, 393252, 720898, 4, 458788, 720898, 5, -65500, 720898, 3, 36, 720898, 4, 65572, 720898, 5, -262108, 720898, 3, -196572, 720898, 4, -131036, 720898, 5, -458716, 720898, 3, -393180, 720898, 4, -327644, 720898, 5, -655324, 720898, 3, -589788, 720898, 4, -524252, 720898, 5, -851932, 655362, 6, -786396, 720898, 4, -720860, 720898, 5, 1310703, 524290, 6, 1310704, 589826, 6, 1310705, 655362, 6, 1310706, 524290, 6, 1310707, 589826, 6, 1310708, 655362, 6, 1310709, 524290, 6, 1310710, 589826, 6, 1310711, 655362, 6, 1310712, 524290, 6, 1310713, 589826, 6, 1310714, 655362, 6, 1310715, 524290, 6, 1310716, 589826, 6, 1310717, 655362, 6, 1310718, 524290, 6, 1310719, 589826, 6, 1245184, 655362, 6, 1245185, 524290, 6, 1245186, 589826, 6, 1245187, 655362, 6, 1245194, 524290, 6, 1245195, 589826, 6, 1245196, 655362, 6, 1245197, 524290, 6, 1245198, 589826, 6, 1245199, 655362, 6, 1245200, 524290, 6, 1245201, 589826, 6, 1245202, 655362, 6, 1245203, 524290, 6, 1245204, 589826, 6, 1245205, 655362, 6, 1245206, 524290, 6, 1245207, 589826, 6, 1245208, 655362, 6, 1245209, 524290, 6, 1245210, 589826, 6, 1245211, 655362, 6, 1245212, 524290, 6, 1245213, 589826, 6, 1245214, 655362, 6, 1245215, 524290, 6, 1245216, 589826, 6, 1245217, 655362, 6, 1245218, 524290, 6, 1245219, 589826, 6, 1114095, 720898, 3, 1179631, 720898, 4, 1245167, 720898, 5, 917487, 720898, 3, 983023, 720898, 4, 1048559, 720898, 5, 720879, 720898, 3, 786415, 720898, 4, 851951, 720898, 5, 524271, 720898, 3, 589807, 720898, 4, 655343, 720898, 5, 327663, 720898, 3, 393199, 720898, 4, 458735, 720898, 5, -65553, 720898, 3, -17, 720898, 4, 65519, 720898, 5, -262161, 720898, 3, -196625, 720898, 4, -131089, 720898, 5, -458769, 720898, 3, -393233, 720898, 4, -327697, 720898, 5, -655377, 720898, 3, -589841, 720898, 4, -524305, 720898, 5, -786449, 524290, 6, -720913, 720898, 5, -786448, 589826, 6, -786447, 655362, 6, -786446, 524290, 6, -786445, 589826, 6, -786444, 655362, 6, -786443, 524290, 6, -786442, 589826, 6, -786441, 655362, 6, -786440, 524290, 6, -786439, 589826, 6, -786438, 655362, 6, -786437, 524290, 6, -786436, 589826, 6, -786435, 655362, 6, -786434, 524290, 6, -786433, 589826, 6, -851968, 655362, 6, -851967, 524290, 6, -851966, 589826, 6, -851965, 655362, 6, -851958, 524290, 6, -851957, 589826, 6, -851956, 655362, 6, -851955, 524290, 6, -851954, 589826, 6, -851953, 655362, 6, -851952, 524290, 6, -851951, 589826, 6, -851950, 655362, 6, -851949, 524290, 6, -851948, 589826, 6, -851947, 655362, 6, -851946, 524290, 6, -851945, 589826, 6, -851944, 655362, 6, -851943, 524290, 6, -851942, 589826, 6, -851941, 655362, 6, -851940, 524290, 6, -851939, 589826, 6, -851938, 655362, 6, -851937, 524290, 6, -851936, 589826, 6, -851935, 655362, 6, -851934, 524290, 6, -851933, 589826, 6)
 
-[node name="Player" parent="." instance=ExtResource("2_6527c")]
+[node name="Player" parent="." instance=ExtResource("7_dlsi6")]
 
-[node name="MultiplayerHUD" type="Control" parent="."]
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -384.0
+offset_top = -216.0
+offset_right = 384.0
+offset_bottom = 216.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MultiplayerHUD" type="Control" parent="Control"]
 unique_name_in_owner = true
 z_index = 1
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 120.0
+offset_bottom = 120.0
 
-[node name="Panel" type="Panel" parent="MultiplayerHUD"]
-layout_mode = 0
-offset_left = -100.0
-offset_top = -36.0
-offset_right = 20.0
-offset_bottom = 84.0
+[node name="Panel" type="Panel" parent="Control/MultiplayerHUD"]
+layout_mode = 1
+offset_right = 120.0
+offset_bottom = 120.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MultiplayerHUD/Panel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MultiplayerHUD/Panel"]
 layout_mode = 0
 offset_right = 120.0
 offset_bottom = 120.0
 
-[node name="Host" type="Button" parent="MultiplayerHUD/Panel/VBoxContainer"]
+[node name="Host" type="Button" parent="Control/MultiplayerHUD/Panel/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
 text = "Host
 "
 
-[node name="Join" type="Button" parent="MultiplayerHUD/Panel/VBoxContainer"]
+[node name="Join" type="Button" parent="Control/MultiplayerHUD/Panel/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
 text = "Join 	as client"
 
-[node name="UseSteam" type="Button" parent="MultiplayerHUD/Panel/VBoxContainer"]
+[node name="UseSteam" type="Button" parent="Control/MultiplayerHUD/Panel/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
 text = "Use Steam"
 
-[node name="SteamHUD" type="Control" parent="."]
+[node name="SteamHUD" type="Control" parent="Control"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 3
 anchors_preset = 0
-offset_left = -100.0
-offset_top = -36.0
-offset_right = 20.0
-offset_bottom = 84.0
+offset_right = 120.0
+offset_bottom = 120.0
 
-[node name="Panel" type="Panel" parent="SteamHUD"]
+[node name="Panel" type="Panel" parent="Control/SteamHUD"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -404,7 +412,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Options" type="VBoxContainer" parent="SteamHUD/Panel"]
+[node name="Options" type="VBoxContainer" parent="Control/SteamHUD/Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -413,17 +421,17 @@ offset_bottom = -76.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HostP2PGames" type="Button" parent="SteamHUD/Panel/Options"]
+[node name="HostP2PGames" type="Button" parent="Control/SteamHUD/Panel/Options"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
 text = "Host P2P Game"
 
-[node name="ListLobbies" type="Button" parent="SteamHUD/Panel/Options"]
+[node name="ListLobbies" type="Button" parent="Control/SteamHUD/Panel/Options"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
 text = "List Lobbies"
 
-[node name="Lobbies" type="ScrollContainer" parent="SteamHUD/Panel"]
+[node name="Lobbies" type="ScrollContainer" parent="Control/SteamHUD/Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -432,7 +440,7 @@ offset_top = 45.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="SteamHUD/Panel/Lobbies"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/SteamHUD/Panel/Lobbies"]
 layout_mode = 2
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
@@ -443,21 +451,6 @@ spawn_limit = 2
 [node name="Players" type="Node2D" parent="."]
 y_sort_enabled = true
 
-[node name="Tree2" parent="Players" instance=ExtResource("5_ajyjg")]
-position = Vector2(-31, 196)
-
-[node name="Tree3" parent="Players" instance=ExtResource("5_ajyjg")]
-position = Vector2(-111, 83)
-
-[node name="Tree4" parent="Players" instance=ExtResource("5_ajyjg")]
-position = Vector2(323, 183)
-
-[node name="Tree5" parent="Players" instance=ExtResource("5_ajyjg")]
-position = Vector2(418, -10)
-
-[node name="Tree6" parent="Players" instance=ExtResource("5_ajyjg")]
-position = Vector2(241, -71)
-
 [node name="House1" parent="Players" instance=ExtResource("8_or2vv")]
 position = Vector2(104, -90)
 
@@ -467,43 +460,58 @@ position = Vector2(204, 120)
 [node name="QuestGiver" parent="Players" instance=ExtResource("12_hg01n")]
 position = Vector2(87, -33)
 
+[node name="Tree" parent="Players" instance=ExtResource("10_u5nfb")]
+position = Vector2(-110, 82)
+
+[node name="Tree7" parent="Players" instance=ExtResource("10_u5nfb")]
+position = Vector2(-31, 196)
+
+[node name="Tree8" parent="Players" instance=ExtResource("10_u5nfb")]
+position = Vector2(324, 183)
+
+[node name="Tree9" parent="Players" instance=ExtResource("10_u5nfb")]
+position = Vector2(418, -10)
+
+[node name="Tree10" parent="Players" instance=ExtResource("10_u5nfb")]
+position = Vector2(240, -70)
+
 [node name="Icon" type="Sprite2D" parent="."]
 position = Vector2(506, 230)
 rotation = -2.77422
 texture = ExtResource("3_7nj7w")
 
-[node name="Enemy" parent="." instance=ExtResource("7_ryjjo")]
-position = Vector2(259, 520)
-
-[node name="Enemy2" parent="." instance=ExtResource("7_ryjjo")]
-position = Vector2(372, 465)
-
-[node name="Enemy3" parent="." instance=ExtResource("7_ryjjo")]
-position = Vector2(71, 468)
-
-[node name="Enemy4" parent="." instance=ExtResource("7_ryjjo")]
-position = Vector2(149, 567)
-
-[node name="Enemy5" parent="." instance=ExtResource("7_ryjjo")]
-position = Vector2(-43, 548)
-
-[node name="Enemy6" parent="." instance=ExtResource("7_ryjjo")]
+[node name="Enemy11" parent="." instance=ExtResource("12_u2ona")]
 position = Vector2(-118, 429)
 
-[node name="Enemy7" parent="." instance=ExtResource("7_ryjjo")]
-position = Vector2(243, 409)
+[node name="Enemy12" parent="." instance=ExtResource("12_u2ona")]
+position = Vector2(-35, 524)
 
-[node name="Enemy8" parent="." instance=ExtResource("7_ryjjo")]
-position = Vector2(568, 391)
+[node name="Enemy13" parent="." instance=ExtResource("12_u2ona")]
+position = Vector2(22, 414)
 
-[node name="Enemy9" parent="." instance=ExtResource("7_ryjjo")]
-position = Vector2(524, 524)
+[node name="Enemy14" parent="." instance=ExtResource("12_u2ona")]
+position = Vector2(105, 526)
 
-[node name="Enemy10" parent="." instance=ExtResource("7_ryjjo")]
-position = Vector2(455, 397)
+[node name="Enemy15" parent="." instance=ExtResource("12_u2ona")]
+position = Vector2(141, 420)
 
-[connection signal="pressed" from="MultiplayerHUD/Panel/VBoxContainer/Host" to="." method="host"]
-[connection signal="pressed" from="MultiplayerHUD/Panel/VBoxContainer/Join" to="." method="join_as_client"]
-[connection signal="pressed" from="MultiplayerHUD/Panel/VBoxContainer/UseSteam" to="." method="use_steam"]
-[connection signal="pressed" from="SteamHUD/Panel/Options/HostP2PGames" to="." method="host"]
-[connection signal="pressed" from="SteamHUD/Panel/Options/ListLobbies" to="." method="list_steam_lobbies"]
+[node name="Enemy16" parent="." instance=ExtResource("12_u2ona")]
+position = Vector2(209, 522)
+
+[node name="Enemy17" parent="." instance=ExtResource("12_u2ona")]
+position = Vector2(297, 409)
+
+[node name="Enemy18" parent="." instance=ExtResource("12_u2ona")]
+position = Vector2(347, 534)
+
+[node name="Enemy19" parent="." instance=ExtResource("12_u2ona")]
+position = Vector2(401, 436)
+
+[node name="Enemy20" parent="." instance=ExtResource("12_u2ona")]
+position = Vector2(473, 522)
+
+[connection signal="pressed" from="Control/MultiplayerHUD/Panel/VBoxContainer/Host" to="." method="host"]
+[connection signal="pressed" from="Control/MultiplayerHUD/Panel/VBoxContainer/Join" to="." method="join_as_client"]
+[connection signal="pressed" from="Control/MultiplayerHUD/Panel/VBoxContainer/UseSteam" to="." method="use_steam"]
+[connection signal="pressed" from="Control/SteamHUD/Panel/Options/HostP2PGames" to="." method="host"]
+[connection signal="pressed" from="Control/SteamHUD/Panel/Options/ListLobbies" to="." method="list_steam_lobbies"]

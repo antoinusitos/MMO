@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://cr4fgaaoftllg"]
+[gd_scene load_steps=6 format=3 uid="uid://cr4fgaaoftllg"]
 
 [ext_resource type="Texture2D" uid="uid://cwkh6eartldug" path="res://Assets/char free/global.png" id="1_1fgyl"]
-[ext_resource type="Script" path="res://Scenes/quest_giver.gd" id="1_jtiu1"]
+[ext_resource type="Script" path="res://Scripts/quest_giver.gd" id="1_jtiu1"]
+[ext_resource type="Texture2D" uid="uid://bxib8flclqhaq" path="res://Assets/Exclamation.png" id="3_k768s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7fira"]
 size = Vector2(20, 39)
@@ -24,6 +25,12 @@ position = Vector2(3, -28)
 scale = Vector2(2, 2)
 texture = ExtResource("1_1fgyl")
 region_enabled = true
+region_rect = Rect2(1, 68, 33, 32)
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+position = Vector2(0, -80)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_k768s")
 region_rect = Rect2(1, 68, 33, 32)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
