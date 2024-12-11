@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://b0n2xkcyql2ru"]
+
+[ext_resource type="Texture2D" uid="uid://bmo413356u0a4" path="res://Assets/tilemap_packed.png" id="1_boxwa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c7fra"]
+size = Vector2(132, 62)
+
+[node name="House1" type="StaticBody2D"]
+position = Vector2(0, -27)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("1_boxwa")
+region_enabled = true
+region_rect = Rect2(0, 64, 66, 48)
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprite2D"]
+position = Vector2(7, 16.5)
+texture = ExtResource("1_boxwa")
+region_enabled = true
+region_rect = Rect2(16, 113, 16, 15)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 17)
+shape = SubResource("RectangleShape2D_c7fra")

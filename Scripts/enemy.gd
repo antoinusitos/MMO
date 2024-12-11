@@ -1,6 +1,7 @@
 extends Node2D
 
 @export var pickup : PackedScene
+@export var dead : bool = false
 
 var _players_spawn_node
 
@@ -10,9 +11,11 @@ func _ready():
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if dead:
+		die()
 	pass
 
-@rpc("any_peer","call_local","reliable")
+@rpc
 func test_spawn():
 	print("test spawn")
 	var pickup_inst = pickup.instantiate()
@@ -20,8 +23,13 @@ func test_spawn():
 	pickup_inst.position = position
 
 func die():
-	test_spawn()
+	print("die")
+	#test_spawn()
 	queue_free()
 
-func take_damage():
-	die()
+func take_damage(sender_id):
+	dead = true
+	if multiplayer.is_server():
+		test_spawn()
+	else:
+		rpc_id(sender_id,"test_spawn")
