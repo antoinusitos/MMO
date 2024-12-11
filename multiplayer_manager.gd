@@ -25,7 +25,8 @@ func become_host():
 	
 	_remove_single_player()
 	
-	_add_player_to_game(1)
+	if !OS.has_feature("dedicated_server"):
+		_add_player_to_game(1)
 	
 func join_host():
 	print("joining")
