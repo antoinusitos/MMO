@@ -11,12 +11,12 @@ func _ready():
 		set_process(false)
 		set_physics_process(false)
 
-	input_move_direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	input_move_direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	input_direction = Vector2.ZERO
 
 func _physics_process(delta):
-	input_move_direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	input_direction = player.get_global_mouse_position()
+	input_move_direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	input_direction = player.get_local_mouse_position()
 
 	shoot = Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)
 

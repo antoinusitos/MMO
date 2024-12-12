@@ -3,7 +3,12 @@ extends Node2D
 @export var pickup : PackedScene
 @export var dead : bool = false
 
+@export var enemy_spawner : Node2D
+
 var _players_spawn_node
+var _drop_rate : float = 0.5
+var _xp_dealt : int = 1
+var _health : int = 100
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -24,12 +29,21 @@ func test_spawn():
 
 func die():
 	print("die")
-	#test_spawn()
+	enemy_spawner.spawn_enemy()
 	queue_free()
 
-func take_damage(sender_id):
+func take_damage(sender_id, damage):
+	_health -= damage
+	if _health > 0:
+		return
+		
 	dead = true
-	if multiplayer.is_server():
-		test_spawn()
-	else:
-		rpc_id(sender_id,"test_spawn")
+	var rand : float = randf()
+	print(rand)
+	if rand <= _drop_rate:
+		if multiplayer.is_server():
+			test_spawn()
+		else:
+			rpc_id(sender_id,"test_spawn")
+		
+	return true

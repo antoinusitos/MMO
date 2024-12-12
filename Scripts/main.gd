@@ -1,4 +1,4 @@
-extends Node2D
+extends Node
 
 var lobby_id = 0
 
@@ -11,7 +11,7 @@ func _ready():
 func host():
 	print("Host")
 	_remove_single_player()
-	$MultiplayerHUD.hide()
+	%MultiplayerHUD.hide()
 	%SteamHUD.hide()
 	%NetworkManager.become_host()
 	
@@ -34,7 +34,7 @@ func list_steam_lobbies():
 func join_lobby(lobby_id = 0):
 	print("Joining Lobby %s" % lobby_id)
 	_remove_single_player()
-	$MultiplayerHUD.hide()
+	%MultiplayerHUD.hide()
 	%SteamHUD.hide()
 	%NetworkManager.join_as_client(lobby_id)
 

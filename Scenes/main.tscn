@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cvhkkbfyt4mki"]
+[gd_scene load_steps=19 format=3 uid="uid://cvhkkbfyt4mki"]
 
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_yntn6"]
 [ext_resource type="Script" path="res://Scripts/Multiplayer/Networks/network_manager.gd" id="2_ocqd3"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://bbfe5slu6noxj" path="res://Scenes/tree.tscn" id="10_u5nfb"]
 [ext_resource type="PackedScene" uid="uid://cr4fgaaoftllg" path="res://Scenes/quest_giver.tscn" id="12_hg01n"]
 [ext_resource type="PackedScene" uid="uid://bntu28tbupwou" path="res://Scenes/enemy.tscn" id="12_u2ona"]
+[ext_resource type="PackedScene" uid="uid://ddutyj1s76lf5" path="res://Scenes/enemy_spawner.tscn" id="13_hhj2j"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_37wuy"]
 texture = ExtResource("2_sdcqh")
@@ -330,7 +331,7 @@ sources/1 = SubResource("TileSetAtlasSource_56882")
 sources/2 = SubResource("TileSetAtlasSource_miru7")
 sources/3 = SubResource("TileSetAtlasSource_846jy")
 
-[node name="main" type="Node2D"]
+[node name="main" type="Node"]
 script = ExtResource("1_yntn6")
 
 [node name="NetworkManager" type="Node" parent="." node_paths=PackedStringArray("_players_spawn_node")]
@@ -361,6 +362,8 @@ offset_right = 384.0
 offset_bottom = 216.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="MultiplayerHUD" type="Control" parent="Control"]
 unique_name_in_owner = true
@@ -480,38 +483,57 @@ position = Vector2(506, 230)
 rotation = -2.77422
 texture = ExtResource("3_7nj7w")
 
-[node name="Enemy11" parent="." instance=ExtResource("12_u2ona")]
+[node name="Enemy11" parent="." node_paths=PackedStringArray("enemy_spawner") instance=ExtResource("12_u2ona")]
 position = Vector2(-118, 429)
+enemy_spawner = NodePath("../EnemySpawner")
 
-[node name="Enemy12" parent="." instance=ExtResource("12_u2ona")]
+[node name="Enemy12" parent="." node_paths=PackedStringArray("enemy_spawner") instance=ExtResource("12_u2ona")]
 position = Vector2(-35, 524)
+enemy_spawner = NodePath("../EnemySpawner")
 
-[node name="Enemy13" parent="." instance=ExtResource("12_u2ona")]
+[node name="Enemy13" parent="." node_paths=PackedStringArray("enemy_spawner") instance=ExtResource("12_u2ona")]
 position = Vector2(22, 414)
+enemy_spawner = NodePath("../EnemySpawner")
 
-[node name="Enemy14" parent="." instance=ExtResource("12_u2ona")]
+[node name="Enemy14" parent="." node_paths=PackedStringArray("enemy_spawner") instance=ExtResource("12_u2ona")]
 position = Vector2(105, 526)
+enemy_spawner = NodePath("../EnemySpawner")
 
-[node name="Enemy15" parent="." instance=ExtResource("12_u2ona")]
+[node name="Enemy15" parent="." node_paths=PackedStringArray("enemy_spawner") instance=ExtResource("12_u2ona")]
 position = Vector2(141, 420)
+enemy_spawner = NodePath("../EnemySpawner")
 
-[node name="Enemy16" parent="." instance=ExtResource("12_u2ona")]
+[node name="Enemy16" parent="." node_paths=PackedStringArray("enemy_spawner") instance=ExtResource("12_u2ona")]
 position = Vector2(209, 522)
+enemy_spawner = NodePath("../EnemySpawner")
 
-[node name="Enemy17" parent="." instance=ExtResource("12_u2ona")]
+[node name="Enemy17" parent="." node_paths=PackedStringArray("enemy_spawner") instance=ExtResource("12_u2ona")]
 position = Vector2(297, 409)
+enemy_spawner = NodePath("../EnemySpawner")
 
-[node name="Enemy18" parent="." instance=ExtResource("12_u2ona")]
+[node name="Enemy18" parent="." node_paths=PackedStringArray("enemy_spawner") instance=ExtResource("12_u2ona")]
 position = Vector2(347, 534)
+enemy_spawner = NodePath("../EnemySpawner")
 
-[node name="Enemy19" parent="." instance=ExtResource("12_u2ona")]
+[node name="Enemy19" parent="." node_paths=PackedStringArray("enemy_spawner") instance=ExtResource("12_u2ona")]
 position = Vector2(401, 436)
+enemy_spawner = NodePath("../EnemySpawner")
 
-[node name="Enemy20" parent="." instance=ExtResource("12_u2ona")]
+[node name="Enemy20" parent="." node_paths=PackedStringArray("enemy_spawner") instance=ExtResource("12_u2ona")]
 position = Vector2(473, 522)
+enemy_spawner = NodePath("../EnemySpawner")
+
+[node name="EnemySpawner" parent="." instance=ExtResource("13_hhj2j")]
+position = Vector2(-139, 350)
+
+[node name="Area2D" parent="EnemySpawner" index="0"]
+position = Vector2(320, 130)
+scale = Vector2(32, 13)
 
 [connection signal="pressed" from="Control/MultiplayerHUD/Panel/VBoxContainer/Host" to="." method="host"]
 [connection signal="pressed" from="Control/MultiplayerHUD/Panel/VBoxContainer/Join" to="." method="join_as_client"]
 [connection signal="pressed" from="Control/MultiplayerHUD/Panel/VBoxContainer/UseSteam" to="." method="use_steam"]
 [connection signal="pressed" from="Control/SteamHUD/Panel/Options/HostP2PGames" to="." method="host"]
 [connection signal="pressed" from="Control/SteamHUD/Panel/Options/ListLobbies" to="." method="list_steam_lobbies"]
+
+[editable path="EnemySpawner"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://wee5jjpvgu41"]
+[gd_scene load_steps=21 format=3 uid="uid://wee5jjpvgu41"]
 
 [ext_resource type="Script" path="res://Scripts/Multiplayer/player.gd" id="1_hb32s"]
 [ext_resource type="Texture2D" uid="uid://cwkh6eartldug" path="res://Assets/char free/global.png" id="2_qjby0"]
@@ -109,6 +109,12 @@ animations = [{
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_486c7"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_is7bd"]
+bg_color = Color(1, 0, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_55d0o"]
+bg_color = Color(1, 1, 0, 1)
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_hb32s")
 
@@ -137,6 +143,11 @@ position = Vector2(0, -1)
 rotation = -1.57079
 target_position = Vector2(0, 150)
 
+[node name="Sprite2D" type="Sprite2D" parent="Weapon/RayCast2D"]
+position = Vector2(0, 150)
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("5_mrmgo")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_486c7")
 
@@ -151,3 +162,46 @@ offset_right = 111.0
 offset_bottom = 62.0
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("5_mrmgo")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -384.0
+offset_top = -216.0
+offset_right = 768.0
+offset_bottom = 432.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.66662, 0.66704)
+
+[node name="HealthProgressBar" type="ProgressBar" parent="Control"]
+clip_contents = true
+layout_mode = 1
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 110.0
+offset_bottom = 20.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_is7bd")
+step = 1.0
+value = 100.0
+show_percentage = false
+
+[node name="XPProgressBar" type="ProgressBar" parent="Control"]
+clip_contents = true
+offset_left = 10.0
+offset_top = 30.0
+offset_right = 110.0
+offset_bottom = 40.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_55d0o")
+step = 1.0
+show_percentage = false
+
+[node name="XPText" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 40.0
+offset_right = 64.0
+offset_bottom = 63.0
+text = "Level 1"

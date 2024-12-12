@@ -8,6 +8,7 @@ size = Vector2(14, 15)
 
 [node name="Pickup" type="Area2D"]
 script = ExtResource("1_anu2a")
+item_id = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_igtny")
