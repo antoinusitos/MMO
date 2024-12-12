@@ -1,9 +1,8 @@
-[gd_scene load_steps=19 format=3 uid="uid://cvhkkbfyt4mki"]
+[gd_scene load_steps=18 format=3 uid="uid://cvhkkbfyt4mki"]
 
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_yntn6"]
 [ext_resource type="Script" path="res://Scripts/Multiplayer/Networks/network_manager.gd" id="2_ocqd3"]
 [ext_resource type="Texture2D" uid="uid://bw5fbn7v7mf0d" path="res://Assets/Hana Caraka - Topdown Tileset [sample]/Tileset/Spring - simplified.png" id="2_sdcqh"]
-[ext_resource type="Texture2D" uid="uid://ddvejmtuo8mtu" path="res://icon.svg" id="3_7nj7w"]
 [ext_resource type="Texture2D" uid="uid://cuoy20wv5m7bf" path="res://Assets/Hana Caraka - Topdown Tileset [sample]/Props/Props-All.png" id="3_y44ey"]
 [ext_resource type="Texture2D" uid="uid://bmo413356u0a4" path="res://Assets/tilemap_packed.png" id="5_gmubk"]
 [ext_resource type="Texture2D" uid="uid://cpr76uicp0j5o" path="res://Assets/Hana Caraka - Topdown Tileset [sample]/Tileset/Dirt - simplified.png" id="6_fybji"]
@@ -477,11 +476,6 @@ position = Vector2(418, -10)
 
 [node name="Tree10" parent="Players" instance=ExtResource("10_u5nfb")]
 position = Vector2(240, -70)
-
-[node name="Icon" type="Sprite2D" parent="."]
-position = Vector2(506, 230)
-rotation = -2.77422
-texture = ExtResource("3_7nj7w")
 
 [node name="Enemy11" parent="." node_paths=PackedStringArray("enemy_spawner") instance=ExtResource("12_u2ona")]
 position = Vector2(-118, 429)

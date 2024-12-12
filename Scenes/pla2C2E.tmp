@@ -201,14 +201,3 @@ offset_top = 64.4639
 offset_right = 66.0008
 offset_bottom = 87.4639
 text = "0 / 0"
-
-[node name="ReloadBar" type="ProgressBar" parent="Control"]
-visible = false
-clip_contents = true
-offset_left = 7.50053
-offset_top = 88.4505
-offset_right = 107.501
-offset_bottom = 98.4505
-theme_override_styles/fill = SubResource("StyleBoxFlat_is7bd")
-step = 0.001
-show_percentage = false

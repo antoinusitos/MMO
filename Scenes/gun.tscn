@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://cbo524uelxwvn"]
+
+[ext_resource type="Script" path="res://Scripts/weapon.gd" id="1_1tbqc"]
+[ext_resource type="Texture2D" uid="uid://tfh3wla0tqj3" path="res://Assets/Weapons.png" id="1_84v8c"]
+[ext_resource type="Texture2D" uid="uid://ddvejmtuo8mtu" path="res://icon.svg" id="2_onr5j"]
+
+[node name="Gun" type="Node2D"]
+script = ExtResource("1_1tbqc")
+damage = 10
+
+[node name="WeaponModel" type="Sprite2D" parent="."]
+position = Vector2(15, -1)
+texture = ExtResource("1_84v8c")
+region_enabled = true
+region_rect = Rect2(0, 116, 14, 12)
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(0, -1)
+rotation = -1.57079
+target_position = Vector2(0, 170)
+
+[node name="Sprite2D" type="Sprite2D" parent="RayCast2D"]
+position = Vector2(0, 170)
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("2_onr5j")
