@@ -3,6 +3,9 @@ extends CharacterBody2D
 const SPEED = 300.0
 @onready var sprite_2d = $AnimatedSprite2D
 
+@onready var reload_control = $Reload
+@onready var reload_bar = $Reload/ReloadBar
+
 @export var direction : Vector2
 @export var move_direction : Vector2
 
@@ -22,6 +25,8 @@ var ak_instantiated : Node2D
 @export var gun_index : int = 0
 @export var reloading : bool = false
 @export var current_reloading : float = 0
+@export var ammo_prefab = preload("res://Scenes/UI/Empty_Bullet.tscn")
+@export var ammo_filled_prefab = preload("res://Scenes/UI/Filled_Bullet.tscn")
 
 var can_interact : bool = false
 var interact_object : Node2D
@@ -35,18 +40,43 @@ func player():
 	pass
 	
 func _ready():	
+	gun_instantiated = gun.instantiate()
+	gun_instantiated.current_bullet_num = gun_instantiated.magazine_size
+	ak_instantiated = ak.instantiate()
+	ak_instantiated.current_bullet_num = ak_instantiated.magazine_size
+	current_weapon = gun_instantiated
+	
+	_ui_replace_ammo()
+		
 	if multiplayer.get_unique_id() == player_id:
 		$Camera2D.make_current()
 		MultiplayerManager.local_id = player_id
-		gun_instantiated = gun.instantiate()
-		gun_instantiated.current_bullet_num = gun_instantiated.magazine_size
-		ak_instantiated = ak.instantiate()
-		ak_instantiated.current_bullet_num = ak_instantiated.magazine_size
-		current_weapon = gun_instantiated
-		$Control/BulletsText.set_text(str(current_weapon.current_bullet_num) + " / " + str(current_weapon.magazine_size))
 		add_child(current_weapon)
 	else:
 		$Camera2D.enabled = false
+		$Control.visible = false
+
+func _ui_replace_ammo():
+	for ammo in $CanvasLayer/Control/VBoxContainer.get_child_count():
+		$CanvasLayer/Control/VBoxContainer.get_child(ammo).queue_free()
+	
+	for ammo in current_weapon.magazine_size:
+		var ammo_inst = ammo_filled_prefab.instantiate()
+		$CanvasLayer/Control/VBoxContainer.add_child(ammo_inst)
+
+func _ui_fill_ammo():
+	for ammo_index in range(current_weapon.magazine_size - 1,-1,-1):
+		$CanvasLayer/Control/VBoxContainer.get_child(ammo_index).queue_free()
+		var ammo_inst = ammo_filled_prefab.instantiate()
+		$CanvasLayer/Control/VBoxContainer.add_child(ammo_inst)
+		$CanvasLayer/Control/VBoxContainer.move_child(ammo_inst, ammo_index)
+
+func _ui_remove_ammo():
+	$CanvasLayer/Control/VBoxContainer.get_child(current_weapon.magazine_size - current_weapon.current_bullet_num - 1).queue_free()
+	var ammo_inst = ammo_prefab.instantiate()
+	$CanvasLayer/Control/VBoxContainer.add_child(ammo_inst)
+	$CanvasLayer/Control/VBoxContainer.move_child(ammo_inst, current_weapon.magazine_size - current_weapon.current_bullet_num - 1)
+	print(current_weapon.magazine_size - current_weapon.current_bullet_num - 1)
 
 func _process(delta):
 	if !can_shoot:
@@ -55,16 +85,20 @@ func _process(delta):
 			current_fire_rate = 0
 			can_shoot = true
 	if reloading:
+		if Input.is_action_just_pressed("reload") && current_reloading >= current_weapon.reload_time / 2 - 0.1 && current_reloading <= current_weapon.reload_time / 2 + 0.1:
+			current_reloading = current_weapon.reload_time
+		
 		current_reloading += delta
 		if current_reloading >= current_weapon.reload_time :
 			current_reloading = 0
 			reloading = false
+			
+			_ui_fill_ammo()
 			current_weapon.current_bullet_num = current_weapon.magazine_size
-			$Control/ReloadBar.hide()
-			$Control/BulletsText.set_text(str(current_weapon.current_bullet_num) + " / " + str(current_weapon.magazine_size))
+			reload_control.hide()
 		else:
-			$Control/ReloadBar.show()
-		$Control/ReloadBar.value = current_reloading / current_weapon.reload_time * 100
+			reload_control.show()
+		reload_bar.value = current_reloading / current_weapon.reload_time * 100
 
 func _apply_animations(delta):
 	current_weapon.look_at(current_weapon.global_position + get_local_mouse_position())
@@ -103,7 +137,7 @@ func _apply_movement_from_input(delta):
 		%InputSynchronizer.shoot = false
 		can_shoot = false
 		current_weapon.current_bullet_num -= 1
-		$Control/BulletsText.set_text(str(current_weapon.current_bullet_num) + " / " + str(current_weapon.magazine_size))
+		_ui_remove_ammo()
 		if current_weapon.current_bullet_num <= 0:
 			print("need to reload")
 			reloading = true
@@ -130,13 +164,13 @@ func _physics_process(delta):
 		add_child(gun_instantiated)
 		current_weapon = gun_instantiated
 		gun_index = 0
-		$Control/BulletsText.set_text(str(current_weapon.current_bullet_num) + " / " + str(current_weapon.magazine_size))
+		_ui_replace_ammo()
 	if Input.is_action_just_pressed("Weapon1") && gun_index != 1:
 		remove_child(current_weapon)
 		add_child(ak_instantiated)
 		current_weapon = ak_instantiated
-		$Control/BulletsText.set_text(str(current_weapon.current_bullet_num) + " / " + str(current_weapon.magazine_size))
 		gun_index = 1
+		_ui_replace_ammo()
 
 func _pickup_object(item_id):
 	for item in inventory:
@@ -170,5 +204,5 @@ func receive_XP(amount : int):
 	if xp >= xp_max:
 		xp = xp - xp_max
 		level += 1
-	$Control/XPProgressBar.value = xp
-	$Control/XPText.set_text("Level %s" % level)
+	$CanvasLayer/Control/XPProgressBar.value = xp
+	$CanvasLayer/Control/XPText.set_text("Level %s" % level)

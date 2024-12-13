@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://6c3pq5m6ht45"]
+
+[ext_resource type="Texture2D" uid="uid://chtt75yjlhbr0" path="res://Assets/BulletFilled.png" id="1_y0g27"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 24.6
+offset_bottom = 8.4
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_y0g27")

@@ -151,20 +151,17 @@ offset_bottom = 62.0
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("5_mrmgo")
 
-[node name="Control" type="Control" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -384.0
-offset_top = -216.0
-offset_right = 768.0
-offset_bottom = 432.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.66662, 0.66704)
 
-[node name="HealthProgressBar" type="ProgressBar" parent="Control"]
+[node name="HealthProgressBar" type="ProgressBar" parent="CanvasLayer/Control"]
 clip_contents = true
 layout_mode = 1
 offset_left = 10.0
@@ -176,7 +173,7 @@ step = 1.0
 value = 100.0
 show_percentage = false
 
-[node name="XPProgressBar" type="ProgressBar" parent="Control"]
+[node name="XPProgressBar" type="ProgressBar" parent="CanvasLayer/Control"]
 clip_contents = true
 layout_mode = 0
 offset_left = 10.0
@@ -187,7 +184,7 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_55d0o")
 step = 1.0
 show_percentage = false
 
-[node name="XPText" type="Label" parent="Control"]
+[node name="XPText" type="Label" parent="CanvasLayer/Control"]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 40.0
@@ -195,20 +192,40 @@ offset_right = 64.0
 offset_bottom = 63.0
 text = "Level 1"
 
-[node name="BulletsText" type="Label" parent="Control"]
-offset_left = 12.0008
-offset_top = 64.4639
-offset_right = 66.0008
-offset_bottom = 87.4639
-text = "0 / 0"
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -219.0
+offset_right = 60.0
+offset_bottom = -19.0
+grow_vertical = 0
+theme_override_constants/separation = 10
+alignment = 2
 
-[node name="ReloadBar" type="ProgressBar" parent="Control"]
+[node name="Reload" type="Control" parent="."]
 visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="Reload"]
+layout_mode = 0
+offset_left = -1.0
+offset_top = -48.0
+offset_right = 1.0
+offset_bottom = -33.0
+
+[node name="ReloadBar" type="ProgressBar" parent="Reload"]
 clip_contents = true
-offset_left = 7.50053
-offset_top = 88.4505
-offset_right = 107.501
-offset_bottom = 98.4505
+layout_mode = 0
+offset_left = -50.0
+offset_top = -45.0
+offset_right = 50.0005
+offset_bottom = -35.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_is7bd")
 step = 0.001
 show_percentage = false
