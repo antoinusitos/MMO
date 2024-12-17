@@ -209,6 +209,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="RadiationProgressBar" type="ProgressBar" parent="CanvasLayer/Control"]
 clip_contents = true
@@ -268,6 +269,7 @@ theme_override_constants/separation = 10
 alignment = 2
 
 [node name="QuestPanel" type="Panel" parent="CanvasLayer/Control"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

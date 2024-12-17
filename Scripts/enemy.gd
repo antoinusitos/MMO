@@ -5,10 +5,12 @@ extends Node2D
 
 @export var enemy_spawner : Node2D
 
+@onready var progress_bar = $ProgressBar
+
 var _players_spawn_node
 var _drop_rate : float = 0.5
 var _xp_dealt : int = 1
-var _health : int = 100
+@export var _health : int = 100
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -18,6 +20,7 @@ func _ready():
 func _process(delta):
 	if dead:
 		die()
+	progress_bar.value = _health
 
 @rpc
 func test_spawn():

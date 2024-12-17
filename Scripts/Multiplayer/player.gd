@@ -45,6 +45,7 @@ var ak_instantiated : Node2D
 
 var can_interact : bool = false
 var interact_object : Node2D
+var is_interacting : bool = false
 
 var synced_players : bool = false
 
@@ -146,8 +147,9 @@ func handle_input():
 	if Input.is_action_just_pressed("interact") && can_interact:
 		interact_object._interact(self)
 		can_move = false
+		is_interacting = true
 		$CanvasLayer/Control/QuestPanel.show()
-	if Input.is_action_just_pressed("Weapon0") && gun_index != 0 && !reloading:
+	if Input.is_action_just_pressed("Weapon0") && gun_index != 0 && !reloading && !is_interacting:
 		remove_child(current_weapon)
 		add_child(gun_instantiated)
 		current_weapon = gun_instantiated
@@ -158,7 +160,7 @@ func handle_input():
 				rpc_id(player,"client_weapon_change", 1, 0)
 		else:
 			rpc_id(1,"server_weapon_change", player_id, 0)
-	if Input.is_action_just_pressed("Weapon1") && gun_index != 1 && !reloading:
+	if Input.is_action_just_pressed("Weapon1") && gun_index != 1 && !reloading && !is_interacting:
 		remove_child(current_weapon)
 		add_child(ak_instantiated)
 		current_weapon = ak_instantiated
@@ -169,9 +171,9 @@ func handle_input():
 				rpc_id(player,"client_weapon_change", 1, 1)
 		else:
 			rpc_id(1,"server_weapon_change", player_id, 1)
-	if Input.is_action_just_pressed("reload") && current_weapon.magazine_size > current_weapon.current_bullet_num:
+	if Input.is_action_just_pressed("reload") && current_weapon.magazine_size > current_weapon.current_bullet_num && !is_interacting:
 		reloading = true
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) && can_shoot && not reloading:
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) && can_shoot && not reloading && !is_interacting:
 		can_shoot = false
 		current_weapon.current_bullet_num -= 1
 		_ui_remove_ammo()
@@ -293,6 +295,7 @@ func receive_XP(amount : int):
 func _on_close_quest_panel_button_pressed():
 	$CanvasLayer/Control/QuestPanel.hide()
 	can_move = true
+	is_interacting = false
 
 func add_radiation(amount : int):
 	radiation += amount

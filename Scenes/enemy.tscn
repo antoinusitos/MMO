@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bntu28tbupwou"]
+[gd_scene load_steps=7 format=3 uid="uid://bntu28tbupwou"]
 
 [ext_resource type="Texture2D" uid="uid://ce55g21s7pjl2" path="res://Assets/Swordsman_IdleAtk.png" id="1_7tr2r"]
 [ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_mcn6i"]
@@ -11,6 +11,12 @@ size = Vector2(20, 32)
 properties/0/path = NodePath(".:dead")
 properties/0/spawn = true
 properties/0/replication_mode = 2
+properties/1/path = NodePath(".:_health")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pbjb3"]
+bg_color = Color(1, 0, 1, 1)
 
 [node name="Enemy" type="CharacterBody2D"]
 position = Vector2(0, -18)
@@ -28,3 +34,16 @@ shape = SubResource("RectangleShape2D_p3hgy")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_faiyd")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -25.0
+offset_top = -22.0
+offset_right = 25.0
+offset_bottom = -17.0
+grow_horizontal = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_pbjb3")
+value = 86.98
+show_percentage = false
