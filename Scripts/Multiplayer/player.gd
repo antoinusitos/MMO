@@ -95,7 +95,6 @@ func _ui_remove_ammo():
 	var ammo_inst = ammo_prefab.instantiate()
 	ammo_container.add_child(ammo_inst)
 	ammo_container.move_child(ammo_inst, current_weapon.magazine_size - current_weapon.current_bullet_num - 1)
-	print(current_weapon.magazine_size - current_weapon.current_bullet_num - 1)
 
 func try_to_sync():
 	if not multiplayer.is_server() && not synced_players && multiplayer.get_unique_id() == player_id:
@@ -154,23 +153,33 @@ func handle_input():
 		current_weapon = gun_instantiated
 		gun_index = 0
 		_ui_replace_ammo()
+		if multiplayer.is_server():
+			for player in MultiplayerManager.players:
+				rpc_id(player,"client_weapon_change", 1, 0)
+		else:
+			rpc_id(1,"server_weapon_change", player_id, 0)
 	if Input.is_action_just_pressed("Weapon1") && gun_index != 1 && !reloading:
 		remove_child(current_weapon)
 		add_child(ak_instantiated)
 		current_weapon = ak_instantiated
 		gun_index = 1
 		_ui_replace_ammo()
+		if multiplayer.is_server():
+			for player in MultiplayerManager.players:
+				rpc_id(player,"client_weapon_change", 1, 1)
+		else:
+			rpc_id(1,"server_weapon_change", player_id, 1)
 	if Input.is_action_just_pressed("reload") && current_weapon.magazine_size > current_weapon.current_bullet_num:
 		reloading = true
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) && can_shoot && not reloading:
 		can_shoot = false
 		current_weapon.current_bullet_num -= 1
 		_ui_remove_ammo()
+		current_weapon.play_animation()
 		if multiplayer.is_server():
 			server_shoot(1)
 		else:
 			rpc_id(1,"server_shoot", player_id)
-		print("11multiplayer.is_server()" + str(multiplayer.is_server()))
 		if current_weapon.current_bullet_num <= 0:
 			print("need to reload")
 			reloading = true
@@ -229,7 +238,11 @@ func _physics_process(delta):
 
 @rpc("any_peer", "call_remote", "reliable")
 func server_shoot(sender_id : int):
-	print("current_weapon.get_node().rotation " + str(current_weapon.get_node("./RayCast2D").rotation))
+	for player in MultiplayerManager.players:
+		if player != 1:
+			rpc_id(player,"client_play_weapon_anim", sender_id)
+		else:
+			client_play_weapon_anim(sender_id)
 	var hit = current_weapon.get_node("./RayCast2D").get_collider()
 	if hit && hit.has_method("take_damage"):
 		print(hit.name)
@@ -238,8 +251,6 @@ func server_shoot(sender_id : int):
 				receive_XP(hit._xp_dealt)
 			else:
 				rpc_id(sender_id,"receive_XP", hit._xp_dealt)
-	else:
-		print("no hit")
 
 func _pickup_object(item_id):
 	for item in inventory:
@@ -312,15 +323,35 @@ func sync_player():
 	print("syncing player... %s" % str(player_id))
 	on_weapon_changed()
 
+@rpc("any_peer", "call_remote", "reliable")
+func server_weapon_change(sender_id : int, weapon_index : int):
+	gun_index = weapon_index
+	on_weapon_changed()
+	client_weapon_change(sender_id, weapon_index)
+	pass
+	
+@rpc("authority", "call_local", "reliable")
+func client_weapon_change(sender_id : int, weapon_index : int):
+	gun_index = weapon_index
+	on_weapon_changed()
+	pass
+
 func on_weapon_changed():
 	print("syncing weapon index " + str(gun_index))
 	if gun_index == 1:
-		remove_child(current_weapon)
+		if current_weapon != null:
+			remove_child(current_weapon)
 		add_child(ak_instantiated)
 		current_weapon = ak_instantiated
 		gun_index = 1
 	else:
-		remove_child(current_weapon)
+		if current_weapon != null:
+			remove_child(current_weapon)
 		add_child(gun_instantiated)
 		current_weapon = gun_instantiated
 		gun_index = 0
+
+@rpc
+func client_play_weapon_anim(sender_id : int):
+	if sender_id == player_id:
+		current_weapon.play_animation()
