@@ -20,6 +20,9 @@ var time_to_show_rads_warning : float = 3
 @export var direction : Vector2
 @export var move_direction : Vector2
 
+@onready var panel_inventory = $CanvasLayer/Control/PanelInventory
+@onready var inventory_container = $CanvasLayer/Control/PanelInventory/Inventory
+
 var health : int = 100
 var health_max : int = 100
 var radiation : int = 0
@@ -185,6 +188,19 @@ func handle_input():
 		if current_weapon.current_bullet_num <= 0:
 			print("need to reload")
 			reloading = true
+	if Input.is_action_just_pressed("inventory"):
+		handle_inventory()
+
+func handle_inventory():
+	panel_inventory.visible = !panel_inventory.visible
+	is_interacting = panel_inventory.visible
+	if panel_inventory.visible:
+		for text in inventory_container.get_children():
+			text.queue_free()
+		for item in inventory:
+			var label : Label = Label.new()
+			label.set_text("id : " + str(item.item_id) + " x " + str(item.item_number))
+			inventory_container.add_child(label)
 
 func _process(delta):
 	try_to_sync()

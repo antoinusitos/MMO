@@ -41,7 +41,7 @@ func take_damage(sender_id, damage):
 		return
 		
 	dead = true
-	enemy_spawner.spawn_enemy()
+	#enemy_spawner.spawn_enemy()
 	var rand : float = randf()
 	print(rand)
 	if rand <= _drop_rate:

@@ -319,7 +319,6 @@ offset_bottom = 25.0
 color = Color(1, 0.816859, 0.909463, 1)
 
 [node name="PanelInventory" type="Panel" parent="CanvasLayer/Control"]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
