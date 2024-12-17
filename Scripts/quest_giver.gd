@@ -25,6 +25,7 @@ func _on_area_2d_body_exited(body):
 func _interact(player):
 	print("step %s" % str(step))
 	if step == 0:
+		player._update_quest_text("this is a line of text\n" + "I need %s items" % str(item_needed))
 		print("this is a line of text")
 		print("I need %s items" % str(item_needed))
 		$Exclamation.hide()
@@ -33,12 +34,15 @@ func _interact(player):
 	elif step == 1:
 		var item_number = player._get_item_number(1)
 		if item_number >= item_needed:
+			player._update_quest_text("good job, you have enought !")
 			print("good job, you have enought !")
 			$Waiting.hide()
 			step += 1
 			player.receive_XP(xp_rewarded)
 		else:
+			player._update_quest_text("Too bad\n" + "I need %s items" % str(item_needed))
 			print("Too bad")
 			print("I need %s items" % str(item_needed))
 	elif step == 2:
+		player._update_quest_text("I don't have anything for you")
 		print("I don't have anything for you")

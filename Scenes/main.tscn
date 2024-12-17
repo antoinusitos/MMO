@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cvhkkbfyt4mki"]
+[gd_scene load_steps=17 format=3 uid="uid://cvhkkbfyt4mki"]
 
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_yntn6"]
 [ext_resource type="Script" path="res://Scripts/Multiplayer/Networks/network_manager.gd" id="2_ocqd3"]
@@ -6,14 +6,13 @@
 [ext_resource type="Texture2D" uid="uid://cuoy20wv5m7bf" path="res://Assets/Hana Caraka - Topdown Tileset [sample]/Props/Props-All.png" id="3_y44ey"]
 [ext_resource type="Texture2D" uid="uid://bmo413356u0a4" path="res://Assets/tilemap_packed.png" id="5_gmubk"]
 [ext_resource type="Texture2D" uid="uid://cpr76uicp0j5o" path="res://Assets/Hana Caraka - Topdown Tileset [sample]/Tileset/Dirt - simplified.png" id="6_fybji"]
-[ext_resource type="PackedScene" uid="uid://wee5jjpvgu41" path="res://Scenes/player.tscn" id="7_dlsi6"]
+[ext_resource type="PackedScene" uid="uid://wee5jjpvgu41" path="res://Scenes/player.tscn" id="7_fk0l6"]
 [ext_resource type="PackedScene" uid="uid://b0n2xkcyql2ru" path="res://Scenes/house1.tscn" id="8_or2vv"]
 [ext_resource type="PackedScene" uid="uid://bbfe5slu6noxj" path="res://Scenes/tree.tscn" id="10_u5nfb"]
 [ext_resource type="PackedScene" uid="uid://cr4fgaaoftllg" path="res://Scenes/quest_giver.tscn" id="12_hg01n"]
 [ext_resource type="PackedScene" uid="uid://bntu28tbupwou" path="res://Scenes/enemy.tscn" id="12_u2ona"]
-[ext_resource type="PackedScene" uid="uid://ddutyj1s76lf5" path="res://Scenes/enemy_spawner.tscn" id="13_hhj2j"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_37wuy"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5s7ku"]
 texture = ExtResource("2_sdcqh")
 0:0/0 = 0
 1:0/0 = 0
@@ -31,7 +30,7 @@ texture = ExtResource("2_sdcqh")
 3:2/0 = 0
 4:2/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_56882"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xq1j1"]
 texture = ExtResource("3_y44ey")
 0:0/0 = 0
 1:0/0 = 0
@@ -166,7 +165,7 @@ texture = ExtResource("3_y44ey")
 11:11/0 = 0
 12:11/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_miru7"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ls58d"]
 texture = ExtResource("5_gmubk")
 0:0/0 = 0
 1:0/0 = 0
@@ -301,7 +300,7 @@ texture = ExtResource("5_gmubk")
 11:10/0 = 0
 9:1/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_846jy"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_27xg2"]
 texture = ExtResource("6_fybji")
 0:0/0 = 0
 1:0/0 = 0
@@ -325,10 +324,10 @@ texture = ExtResource("6_fybji")
 4:3/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_70wh7"]
-sources/0 = SubResource("TileSetAtlasSource_37wuy")
-sources/1 = SubResource("TileSetAtlasSource_56882")
-sources/2 = SubResource("TileSetAtlasSource_miru7")
-sources/3 = SubResource("TileSetAtlasSource_846jy")
+sources/0 = SubResource("TileSetAtlasSource_5s7ku")
+sources/1 = SubResource("TileSetAtlasSource_xq1j1")
+sources/2 = SubResource("TileSetAtlasSource_ls58d")
+sources/3 = SubResource("TileSetAtlasSource_27xg2")
 
 [node name="main" type="Node"]
 script = ExtResource("1_yntn6")
@@ -348,7 +347,7 @@ layer_0/tile_data = PackedInt32Array(-262149, 65536, 1, -196613, 65536, 1, -1310
 layer_1/name = "Top"
 layer_1/tile_data = PackedInt32Array(393208, 458753, 0, 458744, 458753, 1, 524280, 458753, 2, 393209, 524289, 0, 458745, 524289, 1, 524281, 524289, 2, 851965, 458753, 0, 917501, 458753, 1, 983037, 458753, 2, 851966, 524289, 0, 917502, 524289, 1, 983038, 524289, 2, 720915, 458753, 0, 786451, 458753, 1, 851987, 458753, 2, 720916, 524289, 0, 786452, 524289, 1, 851988, 524289, 2, -65511, 458753, 0, 25, 458753, 1, 65561, 458753, 2, -65510, 524289, 0, 26, 524289, 1, 65562, 524289, 2, -327666, 458753, 0, -262130, 458753, 1, -196594, 458753, 2, -327665, 524289, 0, -262129, 524289, 1, -196593, 524289, 2, 1114148, 720898, 5, 1179684, 720898, 5, 1245220, 655362, 6, 917540, 720898, 3, 983076, 720898, 4, 1048612, 720898, 5, 720932, 720898, 3, 786468, 720898, 4, 852004, 720898, 5, 524324, 720898, 3, 589860, 720898, 4, 655396, 720898, 5, 327716, 720898, 3, 393252, 720898, 4, 458788, 720898, 5, -65500, 720898, 3, 36, 720898, 4, 65572, 720898, 5, -262108, 720898, 3, -196572, 720898, 4, -131036, 720898, 5, -458716, 720898, 3, -393180, 720898, 4, -327644, 720898, 5, -655324, 720898, 3, -589788, 720898, 4, -524252, 720898, 5, -851932, 655362, 6, -786396, 720898, 4, -720860, 720898, 5, 1310703, 524290, 6, 1310704, 589826, 6, 1310705, 655362, 6, 1310706, 524290, 6, 1310707, 589826, 6, 1310708, 655362, 6, 1310709, 524290, 6, 1310710, 589826, 6, 1310711, 655362, 6, 1310712, 524290, 6, 1310713, 589826, 6, 1310714, 655362, 6, 1310715, 524290, 6, 1310716, 589826, 6, 1310717, 655362, 6, 1310718, 524290, 6, 1310719, 589826, 6, 1245184, 655362, 6, 1245185, 524290, 6, 1245186, 589826, 6, 1245187, 655362, 6, 1245194, 524290, 6, 1245195, 589826, 6, 1245196, 655362, 6, 1245197, 524290, 6, 1245198, 589826, 6, 1245199, 655362, 6, 1245200, 524290, 6, 1245201, 589826, 6, 1245202, 655362, 6, 1245203, 524290, 6, 1245204, 589826, 6, 1245205, 655362, 6, 1245206, 524290, 6, 1245207, 589826, 6, 1245208, 655362, 6, 1245209, 524290, 6, 1245210, 589826, 6, 1245211, 655362, 6, 1245212, 524290, 6, 1245213, 589826, 6, 1245214, 655362, 6, 1245215, 524290, 6, 1245216, 589826, 6, 1245217, 655362, 6, 1245218, 524290, 6, 1245219, 589826, 6, 1114095, 720898, 3, 1179631, 720898, 4, 1245167, 720898, 5, 917487, 720898, 3, 983023, 720898, 4, 1048559, 720898, 5, 720879, 720898, 3, 786415, 720898, 4, 851951, 720898, 5, 524271, 720898, 3, 589807, 720898, 4, 655343, 720898, 5, 327663, 720898, 3, 393199, 720898, 4, 458735, 720898, 5, -65553, 720898, 3, -17, 720898, 4, 65519, 720898, 5, -262161, 720898, 3, -196625, 720898, 4, -131089, 720898, 5, -458769, 720898, 3, -393233, 720898, 4, -327697, 720898, 5, -655377, 720898, 3, -589841, 720898, 4, -524305, 720898, 5, -786449, 524290, 6, -720913, 720898, 5, -786448, 589826, 6, -786447, 655362, 6, -786446, 524290, 6, -786445, 589826, 6, -786444, 655362, 6, -786443, 524290, 6, -786442, 589826, 6, -786441, 655362, 6, -786440, 524290, 6, -786439, 589826, 6, -786438, 655362, 6, -786437, 524290, 6, -786436, 589826, 6, -786435, 655362, 6, -786434, 524290, 6, -786433, 589826, 6, -851968, 655362, 6, -851967, 524290, 6, -851966, 589826, 6, -851965, 655362, 6, -851958, 524290, 6, -851957, 589826, 6, -851956, 655362, 6, -851955, 524290, 6, -851954, 589826, 6, -851953, 655362, 6, -851952, 524290, 6, -851951, 589826, 6, -851950, 655362, 6, -851949, 524290, 6, -851948, 589826, 6, -851947, 655362, 6, -851946, 524290, 6, -851945, 589826, 6, -851944, 655362, 6, -851943, 524290, 6, -851942, 589826, 6, -851941, 655362, 6, -851940, 524290, 6, -851939, 589826, 6, -851938, 655362, 6, -851937, 524290, 6, -851936, 589826, 6, -851935, 655362, 6, -851934, 524290, 6, -851933, 589826, 6)
 
-[node name="Player" parent="." instance=ExtResource("7_dlsi6")]
+[node name="Player" parent="." instance=ExtResource("7_fk0l6")]
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://Scenes/player.tscn")
@@ -382,52 +381,35 @@ position = Vector2(418, -10)
 [node name="Tree10" parent="Players" instance=ExtResource("10_u5nfb")]
 position = Vector2(240, -70)
 
-[node name="Enemy11" parent="." node_paths=PackedStringArray("enemy_spawner") instance=ExtResource("12_u2ona")]
+[node name="Enemy11" parent="." instance=ExtResource("12_u2ona")]
 position = Vector2(-118, 429)
-enemy_spawner = NodePath("../EnemySpawner")
 
-[node name="Enemy12" parent="." node_paths=PackedStringArray("enemy_spawner") instance=ExtResource("12_u2ona")]
+[node name="Enemy12" parent="." instance=ExtResource("12_u2ona")]
 position = Vector2(-35, 524)
-enemy_spawner = NodePath("../EnemySpawner")
 
-[node name="Enemy13" parent="." node_paths=PackedStringArray("enemy_spawner") instance=ExtResource("12_u2ona")]
+[node name="Enemy13" parent="." instance=ExtResource("12_u2ona")]
 position = Vector2(22, 414)
-enemy_spawner = NodePath("../EnemySpawner")
 
-[node name="Enemy14" parent="." node_paths=PackedStringArray("enemy_spawner") instance=ExtResource("12_u2ona")]
+[node name="Enemy14" parent="." instance=ExtResource("12_u2ona")]
 position = Vector2(105, 526)
-enemy_spawner = NodePath("../EnemySpawner")
 
-[node name="Enemy15" parent="." node_paths=PackedStringArray("enemy_spawner") instance=ExtResource("12_u2ona")]
+[node name="Enemy15" parent="." instance=ExtResource("12_u2ona")]
 position = Vector2(141, 420)
-enemy_spawner = NodePath("../EnemySpawner")
 
-[node name="Enemy16" parent="." node_paths=PackedStringArray("enemy_spawner") instance=ExtResource("12_u2ona")]
+[node name="Enemy16" parent="." instance=ExtResource("12_u2ona")]
 position = Vector2(209, 522)
-enemy_spawner = NodePath("../EnemySpawner")
 
-[node name="Enemy17" parent="." node_paths=PackedStringArray("enemy_spawner") instance=ExtResource("12_u2ona")]
+[node name="Enemy17" parent="." instance=ExtResource("12_u2ona")]
 position = Vector2(297, 409)
-enemy_spawner = NodePath("../EnemySpawner")
 
-[node name="Enemy18" parent="." node_paths=PackedStringArray("enemy_spawner") instance=ExtResource("12_u2ona")]
+[node name="Enemy18" parent="." instance=ExtResource("12_u2ona")]
 position = Vector2(347, 534)
-enemy_spawner = NodePath("../EnemySpawner")
 
-[node name="Enemy19" parent="." node_paths=PackedStringArray("enemy_spawner") instance=ExtResource("12_u2ona")]
+[node name="Enemy19" parent="." instance=ExtResource("12_u2ona")]
 position = Vector2(401, 436)
-enemy_spawner = NodePath("../EnemySpawner")
 
-[node name="Enemy20" parent="." node_paths=PackedStringArray("enemy_spawner") instance=ExtResource("12_u2ona")]
+[node name="Enemy20" parent="." instance=ExtResource("12_u2ona")]
 position = Vector2(473, 522)
-enemy_spawner = NodePath("../EnemySpawner")
-
-[node name="EnemySpawner" parent="." instance=ExtResource("13_hhj2j")]
-position = Vector2(-139, 350)
-
-[node name="Area2D" parent="EnemySpawner" index="0"]
-position = Vector2(320, 130)
-scale = Vector2(32, 13)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 2
@@ -530,5 +512,3 @@ layout_mode = 2
 [connection signal="pressed" from="CanvasLayer/Control/MultiplayerHUD/Panel/VBoxContainer/UseSteam" to="." method="use_steam"]
 [connection signal="pressed" from="CanvasLayer/Control/SteamHUD/Panel/Options/HostP2PGames" to="." method="host"]
 [connection signal="pressed" from="CanvasLayer/Control/SteamHUD/Panel/Options/ListLobbies" to="." method="list_steam_lobbies"]
-
-[editable path="EnemySpawner"]

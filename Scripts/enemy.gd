@@ -18,7 +18,6 @@ func _ready():
 func _process(delta):
 	if dead:
 		die()
-	pass
 
 @rpc
 func test_spawn():
@@ -29,15 +28,17 @@ func test_spawn():
 
 func die():
 	print("die")
-	enemy_spawner.spawn_enemy()
 	queue_free()
 
 func take_damage(sender_id, damage):
+	print("multiplayer.is_server()" + str(multiplayer.is_server()))
+	
 	_health -= damage
 	if _health > 0:
 		return
 		
 	dead = true
+	enemy_spawner.spawn_enemy()
 	var rand : float = randf()
 	print(rand)
 	if rand <= _drop_rate:

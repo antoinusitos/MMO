@@ -9,6 +9,7 @@ offset_right = 24.6
 offset_bottom = 8.4
 
 [node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 scale = Vector2(0.2, 0.2)

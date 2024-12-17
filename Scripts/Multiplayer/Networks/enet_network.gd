@@ -33,7 +33,10 @@ func _add_player_to_game(id : int):
 	player_to_add.name = str(id)
 
 	_players_spawn_node.add_child(player_to_add, true)
-
+	
+	if multiplayer.is_server():
+		MultiplayerManager.players.push_back(id)
+		
 func _del_player(id : int):
 	print("Player %s left the game" % id)
 	if not _players_spawn_node.has_node(str(id)):
