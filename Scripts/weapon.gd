@@ -5,6 +5,7 @@ extends Node
 @export var magazine_size : int = 10
 @export var current_bullet_num : int = 10
 @export var reload_time : float = 5
+@export var sound : AudioStream
 
 var animation_time : float = 0.1
 var current_animation_time : float = 0
@@ -35,6 +36,7 @@ func _process(delta):
 		weapon_model.position.x = x_pos_start
 
 func play_animation():
+	#sound.instantiate_playback()
 	current_animation_time = 0
 	playing_animation = true
 	weapon_model.position.x = x_pos_start

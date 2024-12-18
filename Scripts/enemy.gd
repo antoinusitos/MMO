@@ -6,6 +6,7 @@ extends Node2D
 @export var enemy_spawner : Node2D
 
 @onready var progress_bar = $ProgressBar
+@onready var animated_sprite_2d = $AnimatedSprite2D
 
 var _players_spawn_node
 var _drop_rate : float = 0.5
@@ -15,6 +16,7 @@ var _xp_dealt : int = 1
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	_players_spawn_node = get_tree().get_current_scene().get_node("Players")
+	animated_sprite_2d.play("idle")
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -41,7 +43,8 @@ func take_damage(sender_id, damage):
 		return
 		
 	dead = true
-	#enemy_spawner.spawn_enemy()
+	if enemy_spawner != null:
+		enemy_spawner.spawn_enemy()
 	var rand : float = randf()
 	print(rand)
 	if rand <= _drop_rate:

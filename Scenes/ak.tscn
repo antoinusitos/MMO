@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://b4q8qwljtpi6q"]
+[gd_scene load_steps=5 format=3 uid="uid://b4q8qwljtpi6q"]
 
-[ext_resource type="Texture2D" uid="uid://tfh3wla0tqj3" path="res://Assets/Weapons.png" id="1_0xdn4"]
 [ext_resource type="Script" path="res://Scripts/weapon.gd" id="1_c5641"]
-[ext_resource type="Texture2D" uid="uid://ddvejmtuo8mtu" path="res://icon.svg" id="2_fymr5"]
+[ext_resource type="Texture2D" uid="uid://wowcnnx2pqyi" path="res://Assets/Sprites/Weapons_Objects.png" id="2_dw5ov"]
+[ext_resource type="Texture2D" uid="uid://d3ysxv2y5jen7" path="res://Assets/Sprites/Hands.png" id="3_c8fsb"]
+[ext_resource type="Texture2D" uid="uid://be4kbu8wodami" path="res://Assets/Sprites/CrossHair.png" id="4_44phb"]
 
 [node name="AK" type="Node2D"]
+position = Vector2(0, -7)
+scale = Vector2(0.5, 0.5)
 script = ExtResource("1_c5641")
 damage = 15
 fire_rate = 0.1
@@ -12,9 +15,14 @@ magazine_size = 15
 
 [node name="WeaponModel" type="Sprite2D" parent="."]
 position = Vector2(6, 0)
-texture = ExtResource("1_0xdn4")
+texture = ExtResource("2_dw5ov")
 region_enabled = true
-region_rect = Rect2(31, 84, 31, 11)
+region_rect = Rect2(1, 41, 29, 13)
+
+[node name="Hands" type="Sprite2D" parent="WeaponModel"]
+position = Vector2(-2, 2)
+rotation = -1.73343
+texture = ExtResource("3_c8fsb")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 position = Vector2(0, -1)
@@ -23,5 +31,5 @@ target_position = Vector2(0, 150)
 
 [node name="Sprite2D" type="Sprite2D" parent="RayCast2D"]
 position = Vector2(0, 150)
-scale = Vector2(0.05, 0.05)
-texture = ExtResource("2_fymr5")
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("4_44phb")

@@ -1,10 +1,10 @@
-[gd_scene load_steps=24 format=3 uid="uid://wee5jjpvgu41"]
+[gd_scene load_steps=25 format=3 uid="uid://wee5jjpvgu41"]
 
 [ext_resource type="Script" path="res://Scripts/Multiplayer/player.gd" id="1_hb32s"]
-[ext_resource type="Texture2D" uid="uid://cwkh6eartldug" path="res://Assets/char free/global.png" id="2_qjby0"]
 [ext_resource type="PackedScene" uid="uid://b4q8qwljtpi6q" path="res://Scenes/ak.tscn" id="3_rbrjc"]
 [ext_resource type="Script" path="res://Scripts/Multiplayer/multiplayer_input.gd" id="4_g647o"]
 [ext_resource type="Texture2D" uid="uid://ddvejmtuo8mtu" path="res://icon.svg" id="5_mrmgo"]
+[ext_resource type="Texture2D" uid="uid://6jw240jy3fmc" path="res://Assets/Sprites/NormalCharacter.png" id="5_o3eks"]
 [ext_resource type="PackedScene" uid="uid://cbo524uelxwvn" path="res://Scenes/gun.tscn" id="6_ulhye"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_8sa75"]
@@ -32,76 +32,83 @@ properties/1/path = NodePath("InputSynchronizer:input_move_direction")
 properties/1/spawn = true
 properties/1/replication_mode = 1
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_4gm51"]
-atlas = ExtResource("2_qjby0")
+[sub_resource type="AtlasTexture" id="AtlasTexture_yjx5g"]
+atlas = ExtResource("5_o3eks")
 region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_efjt5"]
-atlas = ExtResource("2_qjby0")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_phkil"]
-atlas = ExtResource("2_qjby0")
+[sub_resource type="AtlasTexture" id="AtlasTexture_be5fe"]
+atlas = ExtResource("5_o3eks")
 region = Rect2(32, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ah1ih"]
-atlas = ExtResource("2_qjby0")
+[sub_resource type="AtlasTexture" id="AtlasTexture_p51vv"]
+atlas = ExtResource("5_o3eks")
 region = Rect2(64, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_n3nd4"]
-atlas = ExtResource("2_qjby0")
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ayxa"]
+atlas = ExtResource("5_o3eks")
 region = Rect2(96, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ydq6m"]
-atlas = ExtResource("2_qjby0")
-region = Rect2(128, 0, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_71o8t"]
+atlas = ExtResource("5_o3eks")
+region = Rect2(0, 32, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_u7vhd"]
-atlas = ExtResource("2_qjby0")
-region = Rect2(160, 0, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_ce5rh"]
+atlas = ExtResource("5_o3eks")
+region = Rect2(32, 32, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_84i5l"]
-atlas = ExtResource("2_qjby0")
-region = Rect2(192, 0, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_7o4f2"]
+atlas = ExtResource("5_o3eks")
+region = Rect2(64, 32, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_w7gvf"]
-atlas = ExtResource("2_qjby0")
-region = Rect2(224, 0, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_cl7jq"]
+atlas = ExtResource("5_o3eks")
+region = Rect2(96, 32, 32, 32)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_o55t1"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_qxhp5"]
+atlas = ExtResource("5_o3eks")
+region = Rect2(128, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qp0to"]
+atlas = ExtResource("5_o3eks")
+region = Rect2(160, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2lll4"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_4gm51")
+"texture": SubResource("AtlasTexture_yjx5g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_be5fe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p51vv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ayxa")
 }],
 "loop": true,
 "name": &"idle",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_efjt5")
+"texture": SubResource("AtlasTexture_71o8t")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_phkil")
+"texture": SubResource("AtlasTexture_ce5rh")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ah1ih")
+"texture": SubResource("AtlasTexture_7o4f2")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_n3nd4")
+"texture": SubResource("AtlasTexture_cl7jq")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ydq6m")
+"texture": SubResource("AtlasTexture_qxhp5")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_u7vhd")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_84i5l")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_w7gvf")
+"texture": SubResource("AtlasTexture_qp0to")
 }],
 "loop": true,
 "name": &"run",
@@ -120,7 +127,7 @@ bg_color = Color(1.51131e-05, 0.99898, 0, 1)
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_55d0o"]
-bg_color = Color(1, 1, 0, 1)
+bg_color = Color(0.997933, 0.997933, 0, 1)
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_hb32s")
@@ -136,17 +143,18 @@ replication_config = SubResource("SceneReplicationConfig_t4wiq")
 script = ExtResource("4_g647o")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(-1, -22)
-scale = Vector2(2, 2)
-sprite_frames = SubResource("SpriteFrames_o55t1")
-animation = &"idle"
-frame_progress = 0.545663
+position = Vector2(0, -8)
+sprite_frames = SubResource("SpriteFrames_2lll4")
+animation = &"run"
+frame_progress = 0.764444
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_486c7")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(1.5, 1.5)
+zoom = Vector2(4, 4)
+
+[node name="AudioListener2D" type="AudioListener2D" parent="Camera2D"]
 
 [node name="interact_image" type="TextureRect" parent="."]
 visible = false
@@ -158,15 +166,15 @@ scale = Vector2(0.25, 0.25)
 texture = ExtResource("5_mrmgo")
 
 [node name="player_name" type="Label" parent="."]
-offset_left = -100.0
-offset_top = -55.0
-offset_right = 100.0
-offset_bottom = -32.0
+offset_left = -38.0
+offset_top = -33.0
+offset_right = 112.0
+offset_bottom = -10.0
+scale = Vector2(0.5, 0.5)
 text = "PlayerName"
 horizontal_alignment = 1
 
 [node name="Reload" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_top = 61.0
@@ -176,31 +184,30 @@ offset_bottom = 101.0
 [node name="ColorRect" type="ColorRect" parent="Reload"]
 layout_mode = 0
 offset_left = -1.0
-offset_top = -48.0
-offset_right = 1.0
-offset_bottom = -33.0
+offset_top = -47.0
+offset_bottom = -39.0
 
 [node name="ReloadBar" type="ProgressBar" parent="Reload"]
 clip_contents = true
 layout_mode = 0
-offset_left = -50.0
+offset_left = -26.0
 offset_top = -45.0
-offset_right = 50.0005
-offset_bottom = -35.0
+offset_right = 24.0
+offset_bottom = -40.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_is7bd")
 step = 0.001
 show_percentage = false
 
 [node name="InputFrame" type="ColorRect" parent="Reload"]
-visible = false
 layout_mode = 0
-offset_left = -5.0
-offset_top = -29.0
-offset_right = 5.0
-offset_bottom = -19.0
+offset_left = -3.0
+offset_top = -36.0
+offset_right = 2.0
+offset_bottom = -31.0
 color = Color(0, 0.976471, 1, 1)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 10
 
 [node name="Control" type="Control" parent="CanvasLayer"]
 layout_mode = 3
@@ -214,21 +221,37 @@ mouse_filter = 2
 [node name="RadiationProgressBar" type="ProgressBar" parent="CanvasLayer/Control"]
 clip_contents = true
 layout_mode = 1
-offset_left = 10.0
+offset_left = 40.0
 offset_top = 10.0
-offset_right = 110.0
+offset_right = 140.0
 offset_bottom = 20.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_winmw")
 step = 1.0
 fill_mode = 1
 show_percentage = false
 
+[node name="HPLabel" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 1
+offset_left = 10.0
+offset_top = 2.5
+offset_right = 50.0
+offset_bottom = 25.5
+text = "HP"
+
+[node name="RadLabel" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 1
+offset_left = 150.0
+offset_top = 2.5
+offset_right = 190.0
+offset_bottom = 25.5
+text = "Rads"
+
 [node name="HealthProgressBar" type="ProgressBar" parent="CanvasLayer/Control"]
 clip_contents = true
 layout_mode = 1
-offset_left = 10.0
+offset_left = 40.0
 offset_top = 10.0
-offset_right = 110.0
+offset_right = 140.0
 offset_bottom = 20.0
 theme_override_styles/background = SubResource("StyleBoxFlat_fwwfg")
 theme_override_styles/fill = SubResource("StyleBoxFlat_is7bd")
@@ -238,11 +261,14 @@ show_percentage = false
 
 [node name="XPProgressBar" type="ProgressBar" parent="CanvasLayer/Control"]
 clip_contents = true
-layout_mode = 0
-offset_left = 10.0
-offset_top = 30.0
-offset_right = 110.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -10.0
+grow_horizontal = 2
+grow_vertical = 0
 theme_override_styles/fill = SubResource("StyleBoxFlat_55d0o")
 step = 1.0
 show_percentage = false

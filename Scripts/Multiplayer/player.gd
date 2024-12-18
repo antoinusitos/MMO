@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const SPEED = 300.0
+const SPEED = 150.0
 @onready var sprite_2d = $AnimatedSprite2D
 
 @onready var canvas_layer = $CanvasLayer
@@ -83,9 +83,14 @@ func _ui_replace_ammo():
 	for ammo in ammo_container.get_child_count():
 		ammo_container.get_child(ammo).queue_free()
 	
-	for ammo in current_weapon.magazine_size:
+	for ammo in current_weapon.current_bullet_num:
 		var ammo_inst = ammo_filled_prefab.instantiate()
 		ammo_container.add_child(ammo_inst)
+		
+	for ammo_index in range(current_weapon.magazine_size - current_weapon.current_bullet_num - 1,-1,-1):
+		var ammo_inst = ammo_prefab.instantiate()
+		ammo_container.add_child(ammo_inst)
+		ammo_container.move_child(ammo_inst, ammo_index)
 
 func _ui_fill_ammo():
 	for ammo_index in range(current_weapon.magazine_size - 1,-1,-1):
@@ -146,13 +151,21 @@ func handle_timers(delta):
 			last_time_rads = 0
 			warning_rad.hide()
 
+func stop_reloading():
+	$Reload/InputFrame.hide()
+	current_reloading = 0
+	reloading = false
+	reload_control.hide()
+
 func handle_input():
 	if Input.is_action_just_pressed("interact") && can_interact:
 		interact_object._interact(self)
 		can_move = false
 		is_interacting = true
 		$CanvasLayer/Control/QuestPanel.show()
-	if Input.is_action_just_pressed("Weapon0") && gun_index != 0 && !reloading && !is_interacting:
+	if Input.is_action_just_pressed("Weapon0") && gun_index != 0 && !is_interacting:
+		if reloading:
+			stop_reloading()
 		remove_child(current_weapon)
 		add_child(gun_instantiated)
 		current_weapon = gun_instantiated
@@ -164,6 +177,8 @@ func handle_input():
 		else:
 			rpc_id(1,"server_weapon_change", player_id, 0)
 	if Input.is_action_just_pressed("Weapon1") && gun_index != 1 && !reloading && !is_interacting:
+		if reloading:
+			stop_reloading()
 		remove_child(current_weapon)
 		add_child(ak_instantiated)
 		current_weapon = ak_instantiated
@@ -217,12 +232,12 @@ func _apply_animations(delta):
 	
 	if direction.x > 0:
 		sprite_2d.flip_h = false
-		current_weapon.scale.x = 1
+		current_weapon.scale.x = 0.5
 		current_weapon.get_node("WeaponModel").z_index = 0
 		
 	elif direction.x < 0:
 		sprite_2d.flip_h = true
-		current_weapon.scale.x = -1
+		current_weapon.scale.x = -0.5
 		current_weapon.get_node("WeaponModel").z_index = -1
 
 		current_weapon.rotation_degrees += 180
