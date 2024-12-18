@@ -1,25 +1,25 @@
 [gd_scene load_steps=3 format=3 uid="uid://b0n2xkcyql2ru"]
 
-[ext_resource type="Texture2D" uid="uid://bmo413356u0a4" path="res://Assets/tilemap_packed.png" id="1_boxwa"]
+[ext_resource type="Texture2D" uid="uid://cqgpf35acf5xn" path="res://Assets/Sprites/HouseVillage3.png" id="1_srmy7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c7fra"]
-size = Vector2(132, 62)
+size = Vector2(92, 96)
 
 [node name="House1" type="StaticBody2D"]
 position = Vector2(0, -27)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(2, 2)
-texture = ExtResource("1_boxwa")
+position = Vector2(0, 13)
+texture = ExtResource("1_srmy7")
 region_enabled = true
-region_rect = Rect2(0, 64, 66, 48)
+region_rect = Rect2(148, 98, 91, 28)
 
-[node name="Sprite2D" type="Sprite2D" parent="Sprite2D"]
-position = Vector2(7, 16.5)
-texture = ExtResource("1_boxwa")
+[node name="Sprite2D2" type="Sprite2D" parent="Sprite2D"]
+position = Vector2(0, -56.5)
+texture = ExtResource("1_srmy7")
 region_enabled = true
-region_rect = Rect2(16, 113, 16, 15)
+region_rect = Rect2(388, 0, 122, 124)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 17)
+position = Vector2(0, -21)
 shape = SubResource("RectangleShape2D_c7fra")

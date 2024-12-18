@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://b4q8qwljtpi6q"]
+[gd_scene load_steps=6 format=3 uid="uid://b4q8qwljtpi6q"]
 
 [ext_resource type="Script" path="res://Scripts/weapon.gd" id="1_c5641"]
 [ext_resource type="Texture2D" uid="uid://wowcnnx2pqyi" path="res://Assets/Sprites/Weapons_Objects.png" id="2_dw5ov"]
+[ext_resource type="AudioStream" uid="uid://b6fxfnb3ddvng" path="res://Assets/Sounds/shoot.mp3" id="2_h8ejk"]
 [ext_resource type="Texture2D" uid="uid://d3ysxv2y5jen7" path="res://Assets/Sprites/Hands.png" id="3_c8fsb"]
 [ext_resource type="Texture2D" uid="uid://be4kbu8wodami" path="res://Assets/Sprites/CrossHair.png" id="4_44phb"]
 
@@ -12,6 +13,7 @@ script = ExtResource("1_c5641")
 damage = 15
 fire_rate = 0.1
 magazine_size = 15
+sound = ExtResource("2_h8ejk")
 
 [node name="WeaponModel" type="Sprite2D" parent="."]
 position = Vector2(6, 0)
@@ -33,3 +35,5 @@ target_position = Vector2(0, 150)
 position = Vector2(0, 150)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("4_44phb")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]

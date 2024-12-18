@@ -1,6 +1,5 @@
 inventory ui
 finish quest ui
-finish weapon (fix weapon swap ui bullets)
 add more items
 radio
 sync players when client arrive

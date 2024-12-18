@@ -52,6 +52,8 @@ var is_interacting : bool = false
 
 var synced_players : bool = false
 
+@export var reload_sound : AudioStream
+
 @export var player_id := 1:
 	set(id): 
 		player_id = id
@@ -151,6 +153,11 @@ func handle_timers(delta):
 			last_time_rads = 0
 			warning_rad.hide()
 
+func start_reload():
+	reloading = true
+	$AudioStreamPlayer2D.stream = reload_sound
+	$AudioStreamPlayer2D.play()
+
 func stop_reloading():
 	$Reload/InputFrame.hide()
 	current_reloading = 0
@@ -190,7 +197,7 @@ func handle_input():
 		else:
 			rpc_id(1,"server_weapon_change", player_id, 1)
 	if Input.is_action_just_pressed("reload") && current_weapon.magazine_size > current_weapon.current_bullet_num && !is_interacting:
-		reloading = true
+		start_reload()
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) && can_shoot && not reloading && !is_interacting:
 		can_shoot = false
 		current_weapon.current_bullet_num -= 1
@@ -202,7 +209,7 @@ func handle_input():
 			rpc_id(1,"server_shoot", player_id)
 		if current_weapon.current_bullet_num <= 0:
 			print("need to reload")
-			reloading = true
+			start_reload()
 	if Input.is_action_just_pressed("inventory"):
 		handle_inventory()
 

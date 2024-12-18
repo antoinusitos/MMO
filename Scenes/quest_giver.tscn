@@ -1,12 +1,12 @@
 [gd_scene load_steps=7 format=3 uid="uid://cr4fgaaoftllg"]
 
-[ext_resource type="Texture2D" uid="uid://cwkh6eartldug" path="res://Assets/char free/global.png" id="1_1fgyl"]
 [ext_resource type="Script" path="res://Scripts/quest_giver.gd" id="1_jtiu1"]
+[ext_resource type="Texture2D" uid="uid://cno4a16sgsnos" path="res://Assets/Sprites/Bandit2.png" id="2_hn7pe"]
 [ext_resource type="Texture2D" uid="uid://bxib8flclqhaq" path="res://Assets/Exclamation.png" id="3_k768s"]
 [ext_resource type="Texture2D" uid="uid://c72jffueihr4b" path="res://Assets/Hana Caraka - Topdown Tileset [sample]/Props/Other.png" id="4_y6png"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7fira"]
-size = Vector2(20, 39)
+size = Vector2(20, 19)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vn8kq"]
 size = Vector2(32, 27)
@@ -15,35 +15,26 @@ size = Vector2(32, 27)
 script = ExtResource("1_jtiu1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -32)
-scale = Vector2(2, 2)
-texture = ExtResource("1_1fgyl")
+position = Vector2(0, -8)
+texture = ExtResource("2_hn7pe")
 region_enabled = true
 region_rect = Rect2(0, 0, 32, 32)
 
-[node name="Sprite2D2" type="Sprite2D" parent="."]
-position = Vector2(3, -28)
-scale = Vector2(2, 2)
-texture = ExtResource("1_1fgyl")
-region_enabled = true
-region_rect = Rect2(1, 68, 33, 32)
-
 [node name="Exclamation" type="Sprite2D" parent="."]
-position = Vector2(0, -80)
-scale = Vector2(0.1, 0.1)
+position = Vector2(0, -33)
+scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_k768s")
 region_rect = Rect2(1, 68, 33, 32)
 
 [node name="Waiting" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(1, -79)
-scale = Vector2(3, 3)
+position = Vector2(1, -29)
 texture = ExtResource("4_y6png")
 region_enabled = true
 region_rect = Rect2(17, 34, 16, 13)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -19.5)
+position = Vector2(0, -9.5)
 shape = SubResource("RectangleShape2D_7fira")
 
 [node name="Area2D" type="Area2D" parent="."]

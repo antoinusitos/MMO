@@ -36,7 +36,8 @@ func _process(delta):
 		weapon_model.position.x = x_pos_start
 
 func play_animation():
-	#sound.instantiate_playback()
+	$AudioStreamPlayer2D.stream = sound
+	$AudioStreamPlayer2D.play()
 	current_animation_time = 0
 	playing_animation = true
 	weapon_model.position.x = x_pos_start
