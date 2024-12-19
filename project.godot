@@ -21,12 +21,17 @@ SteamManager="*res://Scripts/Multiplayer/Steam/steam_manager.gd"
 MultiplayerManager="*res://Scripts/Multiplayer/multiplayer_manager.gd"
 QuestManager="*res://Scripts/quest_manager.gd"
 RadiationManager="*res://Scripts/radiation_manager.gd"
+ItemManager="*res://Scenes/item_manager.tscn"
 
 [display]
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/size/always_on_top=true
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/datatable_godot/plugin.cfg")
 
 [input]
 

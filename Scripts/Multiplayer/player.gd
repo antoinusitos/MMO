@@ -37,7 +37,7 @@ var current_fire_rate : float = 0
 const quick_reload_timing : float = 0.15
 var can_move : bool = true
 
-var inventory = Array([], TYPE_OBJECT, "RefCounted", Item)
+var inventory = Array([], TYPE_DICTIONARY, "", null)
 @export var current_weapon : Node2D
 @export var gun : PackedScene
 var gun_instantiated : Node2D
@@ -65,7 +65,7 @@ var synced_players : bool = false
 func player():
 	pass
 	
-func _ready():	
+func _ready():
 	gun_instantiated = gun.instantiate()
 	gun_instantiated.current_bullet_num = gun_instantiated.magazine_size
 	ak_instantiated = ak.instantiate()
@@ -215,7 +215,7 @@ func handle_inventory():
 			text.queue_free()
 		for item in inventory:
 			var label : Label = Label.new()
-			label.set_text("id : " + str(item.item_id) + " x " + str(item.item_number))
+			label.set_text("id : " + str(item["item_id"]) + " x " + str(item["item_number"]))
 			inventory_container.add_child(label)
 
 func _process(delta):
@@ -288,19 +288,19 @@ func server_shoot(sender_id : int):
 
 func _pickup_object(item_id):
 	for item in inventory:
-		if item.item_id == item_id :
-			item.item_number += 1
+		if item["item_id"] == item_id :
+			item["item_number"] += 1
 			return
 	
-	var new_item = Item.new()
-	new_item.item_number = 1
-	new_item.item_id = item_id
+	var new_item = {}
+	new_item["item_number"] = 1
+	new_item["item_id"] = item_id
 	inventory.append(new_item)
 
 func _get_item_number(item_id):
 	for item in inventory:
-		if item.item_id == item_id :
-			return item.item_number
+		if item["item_id"] == item_id :
+			return item["item_number"]
 	
 	return 0
 

@@ -2,6 +2,7 @@ extends StaticBody2D
 
 @export var step : int = 0
 @export var item_needed : int = 5
+@export var item_id_needed : int = 0
 @export var xp_rewarded : int = 50
 
 # Called when the node enters the scene tree for the first time.
@@ -25,12 +26,13 @@ func _on_area_2d_body_exited(body):
 func _interact(player):
 	print("step %s" % str(step))
 	if step == 0:
-		QuestManager._update_quest_text("this is a line of text\n" + "I need %s items" % str(item_needed))
+		var item : Dictionary = ItemManager.get_item(0)
+		QuestManager._update_quest_text("Hello newbie !\n" + "I need " + str(item_needed) + " " + str(item["item_name"]))
 		print("this is a line of text")
 		print("I need %s items" % str(item_needed))
 		$Exclamation.hide()
 		$Waiting.show()
-		QuestManager._get_quest_recap("Find %s items" % str(item_needed))
+		QuestManager._get_quest_recap("Find " + str(item_needed) + " " + str(item["item_name"]))
 		step += 1
 	elif step == 1:
 		var item_number = player._get_item_number(1)
