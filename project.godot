@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 SteamManager="*res://Scripts/Multiplayer/Steam/steam_manager.gd"
 MultiplayerManager="*res://Scripts/Multiplayer/multiplayer_manager.gd"
+QuestManager="*res://Scripts/quest_manager.gd"
 
 [display]
 

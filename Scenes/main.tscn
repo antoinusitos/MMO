@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://cvhkkbfyt4mki"]
+[gd_scene load_steps=24 format=3 uid="uid://cvhkkbfyt4mki"]
 
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_yntn6"]
 [ext_resource type="Script" path="res://Scripts/Multiplayer/Networks/network_manager.gd" id="2_ocqd3"]
@@ -14,7 +14,6 @@
 [ext_resource type="PackedScene" uid="uid://cr4fgaaoftllg" path="res://Scenes/quest_giver.tscn" id="12_hg01n"]
 [ext_resource type="PackedScene" uid="uid://bntu28tbupwou" path="res://Scenes/enemy.tscn" id="12_u2ona"]
 [ext_resource type="Texture2D" uid="uid://bfc1ksh45qknr" path="res://Assets/Sprites/Cars.png" id="14_jnks8"]
-[ext_resource type="PackedScene" uid="uid://lilt3rop0ok2" path="res://Scenes/radiation_zone.tscn" id="15_7pcyr"]
 [ext_resource type="PackedScene" uid="uid://ddutyj1s76lf5" path="res://Scenes/enemy_spawner.tscn" id="16_mm88p"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5s7ku"]
@@ -628,10 +627,6 @@ enemy_spawner = NodePath("../../EnemySpawner")
 position = Vector2(473, 522)
 enemy_spawner = NodePath("../../EnemySpawner")
 
-[node name="radiation_zone" parent="Players" instance=ExtResource("15_7pcyr")]
-position = Vector2(-264, 43)
-rad_per_seconds = 2
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 2
 
@@ -749,5 +744,4 @@ position = Vector2(-1, 1)
 [connection signal="pressed" from="CanvasLayer/Control/SteamHUD/Panel/Options/HostP2PGames" to="." method="host"]
 [connection signal="pressed" from="CanvasLayer/Control/SteamHUD/Panel/Options/ListLobbies" to="." method="list_steam_lobbies"]
 
-[editable path="Players/radiation_zone"]
 [editable path="EnemySpawner"]

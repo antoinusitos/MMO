@@ -13,6 +13,10 @@ const SPEED = 150.0
 @onready var warning_rad = $CanvasLayer/Control/WarningRad
 @onready var rad_label = $CanvasLayer/Control/RadLabel
 
+@onready var quest_recap_container = $CanvasLayer/Control/QuestRecapContainer
+@onready var quest_panel = $CanvasLayer/Control/QuestPanel
+@onready var quest_text = $CanvasLayer/Control/QuestPanel/QuestText
+
 var last_time_rads : float = 0
 var rads_warning_show = 0
 var time_to_show_rads_warning : float = 3
@@ -84,6 +88,7 @@ func _ready():
 	if multiplayer.get_unique_id() == player_id:
 		$Camera2D.make_current()
 		MultiplayerManager.local_id = player_id
+		QuestManager.player = self
 	else:
 		$Camera2D.enabled = false
 		canvas_layer.visible = false
@@ -187,7 +192,7 @@ func handle_input():
 		interact_object._interact(self)
 		can_move = false
 		is_interacting = true
-		$CanvasLayer/Control/QuestPanel.show()
+		QuestManager._set_quest_panel_visibility(true)
 	if Input.is_action_just_pressed("Weapon0") && gun_index != 0 && !is_interacting:
 		if reloading:
 			stop_reloading()
@@ -321,9 +326,6 @@ func _pickup_object(item_id):
 	new_item.item_id = item_id
 	inventory.append(new_item)
 
-func _update_quest_text(text:String):
-	$CanvasLayer/Control/QuestPanel/QuestText.set_text(text)
-
 func _get_item_number(item_id):
 	for item in inventory:
 		if item.item_id == item_id :
@@ -349,7 +351,7 @@ func receive_XP(amount : int):
 	$CanvasLayer/Control/XPText.set_text("Level %s" % level)
 
 func _on_close_quest_panel_button_pressed():
-	$CanvasLayer/Control/QuestPanel.hide()
+	QuestManager._set_quest_panel_visibility(false)
 	can_move = true
 	is_interacting = false
 
