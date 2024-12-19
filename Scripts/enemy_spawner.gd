@@ -2,10 +2,10 @@ extends Node2D
 
 @export var enemy_to_spawn : PackedScene
 
-var _players_spawn_node
+var _players_spawn_node : Node2D
 
 func _ready():
-	_players_spawn_node = get_tree().get_current_scene()
+	_players_spawn_node = get_tree().get_current_scene().get_node("Players")
 
 func spawn_enemy():
 	print("spawn_enemy")

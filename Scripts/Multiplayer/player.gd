@@ -11,6 +11,8 @@ const SPEED = 150.0
 @onready var health_progress_bar = $CanvasLayer/Control/HealthProgressBar
 @onready var radiation_progress_bar = $CanvasLayer/Control/RadiationProgressBar
 @onready var warning_rad = $CanvasLayer/Control/WarningRad
+@onready var rad_label = $CanvasLayer/Control/RadLabel
+
 var last_time_rads : float = 0
 var rads_warning_show = 0
 var time_to_show_rads_warning : float = 3
@@ -26,6 +28,7 @@ var time_to_show_rads_warning : float = 3
 var health : int = 100
 var health_max : int = 100
 var radiation : int = 0
+var radiation_max : int = 100
 var xp : int = 0
 var xp_max : int = 100
 var level : int = 1
@@ -33,6 +36,10 @@ var can_shoot : bool = true
 var current_fire_rate : float = 0
 const quick_reload_timing : float = 0.15
 var can_move : bool = true
+
+var next_rad_to_take : int = 0
+var step_rad_time : float = 0
+var current_step_rad_time : float = 0
 
 var inventory = Array([], TYPE_OBJECT, "RefCounted", Item)
 @export var current_weapon : Node2D
@@ -116,11 +123,21 @@ func try_to_sync():
 					get_tree().root.get_node("main/Players/" + str(player)).sync_player()
 
 func handle_timers(delta):
+	if next_rad_to_take != 0:
+		current_step_rad_time += delta
+		if current_step_rad_time >= step_rad_time:
+			current_step_rad_time = 0
+			if next_rad_to_take > 0:
+				add_radiation(1)
+			else:
+				remove_radiation(-1)
+	
 	if !can_shoot:
 		current_fire_rate += delta
 		if current_fire_rate >= current_weapon.fire_rate:
 			current_fire_rate = 0
 			can_shoot = true
+			
 	if reloading:
 		if current_reloading >= current_weapon.reload_time / 2 - quick_reload_timing && current_reloading <= current_weapon.reload_time / 2 + quick_reload_timing:
 			$Reload/InputFrame.show()
@@ -140,6 +157,7 @@ func handle_timers(delta):
 		else:
 			reload_control.show()
 		reload_bar.value = current_reloading / current_weapon.reload_time * 100
+		
 	if last_time_rads > 0:
 		if rads_warning_show >= 0.25:
 			rads_warning_show = 0
@@ -341,14 +359,23 @@ func add_radiation(amount : int):
 		radiation = health_max
 	if health > health_max - radiation:
 		set_health(health_max - radiation)
-	radiation_progress_bar.value = radiation
+	radiation_progress_bar.value = radiation as float / radiation_max * 100
 	last_time_rads = time_to_show_rads_warning
 
 func remove_radiation(amount : int):
 	radiation -= amount
 	if radiation < 0:
 		radiation = 0
-	radiation_progress_bar.value = radiation
+	radiation_progress_bar.value = radiation as float / radiation_max* 100
+
+func set_radiation_to_take(amount : int, step : float):
+	next_rad_to_take = amount
+	step_rad_time = step
+	if amount > 0:
+		rad_label.set_text("Rads (" + str(next_rad_to_take) + "/s)")
+	else:
+		rad_label.set_text("Rads")
+	pass
 
 func set_health(amount : int):
 	health = amount
@@ -356,7 +383,7 @@ func set_health(amount : int):
 		health = 0
 	elif health > health_max:
 		health = health_max
-	health_progress_bar.value = health
+	health_progress_bar.value = health as float / health_max * 100
 	if health == 0:
 		print("DEATH")
 

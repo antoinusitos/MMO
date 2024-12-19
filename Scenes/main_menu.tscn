@@ -1,0 +1,142 @@
+[gd_scene load_steps=3 format=3 uid="uid://dtwpvq2xoh7fa"]
+
+[ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_h1pgn"]
+[ext_resource type="Script" path="res://Scripts/Multiplayer/Networks/network_manager.gd" id="2_w46hr"]
+
+[node name="MainMenu" type="Node"]
+script = ExtResource("1_h1pgn")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MultiplayerHUD" type="Control" parent="CanvasLayer/Control"]
+unique_name_in_owner = true
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -60.0
+offset_right = 60.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+
+[node name="Panel" type="Panel" parent="CanvasLayer/Control/MultiplayerHUD"]
+layout_mode = 1
+offset_right = 120.0
+offset_bottom = 120.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/MultiplayerHUD/Panel"]
+layout_mode = 0
+offset_right = 120.0
+offset_bottom = 120.0
+
+[node name="Host" type="Button" parent="CanvasLayer/Control/MultiplayerHUD/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Host
+"
+
+[node name="Join" type="Button" parent="CanvasLayer/Control/MultiplayerHUD/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Join 	as client"
+
+[node name="UseSteam" type="Button" parent="CanvasLayer/Control/MultiplayerHUD/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Use Steam"
+
+[node name="SteamHUD" type="Control" parent="CanvasLayer/Control"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -60.0
+offset_right = 60.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+
+[node name="Panel" type="Panel" parent="CanvasLayer/Control/SteamHUD"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Options" type="VBoxContainer" parent="CanvasLayer/Control/SteamHUD/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -76.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HostP2PGames" type="Button" parent="CanvasLayer/Control/SteamHUD/Panel/Options"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Host P2P Game"
+
+[node name="ListLobbies" type="Button" parent="CanvasLayer/Control/SteamHUD/Panel/Options"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "List Lobbies"
+
+[node name="Lobbies" type="ScrollContainer" parent="CanvasLayer/Control/SteamHUD/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 45.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/SteamHUD/Panel/Lobbies"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -437.0
+offset_top = 72.275
+offset_right = 437.0
+offset_bottom = 210.275
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 101
+text = "Last Day On Earth"
+
+[node name="NetworkManager" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_w46hr")
+
+[connection signal="pressed" from="CanvasLayer/Control/MultiplayerHUD/Panel/VBoxContainer/Host" to="." method="host"]
+[connection signal="pressed" from="CanvasLayer/Control/MultiplayerHUD/Panel/VBoxContainer/Join" to="." method="join_as_client"]
+[connection signal="pressed" from="CanvasLayer/Control/MultiplayerHUD/Panel/VBoxContainer/UseSteam" to="." method="use_steam"]
+[connection signal="pressed" from="CanvasLayer/Control/SteamHUD/Panel/Options/HostP2PGames" to="." method="host"]
+[connection signal="pressed" from="CanvasLayer/Control/SteamHUD/Panel/Options/ListLobbies" to="." method="list_steam_lobbies"]

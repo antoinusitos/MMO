@@ -5,12 +5,10 @@ var lobby_id = 0
 func _ready():
 	if OS.has_feature("dedicated_server"):
 		print("Starting Dedicated Server")
-		#_remove_single_player()
 		%NetworkManager.become_host(true)
 
 func host():
 	print("Host")
-	#_remove_single_player()
 	%MultiplayerHUD.hide()
 	%SteamHUD.hide()
 	%NetworkManager.become_host()
@@ -33,7 +31,6 @@ func list_steam_lobbies():
 
 func join_lobby(lobby_id = 0):
 	print("Joining Lobby %s" % lobby_id)
-	#_remove_single_player()
 	%MultiplayerHUD.hide()
 	%SteamHUD.hide()
 	%NetworkManager.join_as_client(lobby_id)
@@ -60,7 +57,3 @@ func _on_lobby_match_list(lobbies : Array):
 			
 			$SteamHUD/Panel/Lobbies/VBoxContainer.add_child(lobby_button)
 		
-func _remove_single_player():
-	print("Remove single Player")
-	var player_to_remove = get_tree().get_current_scene().get_node("Player")
-	player_to_remove.queue_free()
