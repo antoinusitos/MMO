@@ -17,10 +17,6 @@ const SPEED = 150.0
 @onready var quest_panel = $CanvasLayer/Control/QuestPanel
 @onready var quest_text = $CanvasLayer/Control/QuestPanel/QuestText
 
-var last_time_rads : float = 0
-var rads_warning_show = 0
-var time_to_show_rads_warning : float = 3
-
 @onready var ammo_container = $CanvasLayer/Control/VBoxContainer
 
 @export var direction : Vector2
@@ -40,10 +36,6 @@ var can_shoot : bool = true
 var current_fire_rate : float = 0
 const quick_reload_timing : float = 0.15
 var can_move : bool = true
-
-var next_rad_to_take : int = 0
-var step_rad_time : float = 0
-var current_step_rad_time : float = 0
 
 var inventory = Array([], TYPE_OBJECT, "RefCounted", Item)
 @export var current_weapon : Node2D
@@ -89,6 +81,7 @@ func _ready():
 		$Camera2D.make_current()
 		MultiplayerManager.local_id = player_id
 		QuestManager.player = self
+		RadiationManager.player = self
 	else:
 		$Camera2D.enabled = false
 		canvas_layer.visible = false
@@ -128,15 +121,6 @@ func try_to_sync():
 					get_tree().root.get_node("main/Players/" + str(player)).sync_player()
 
 func handle_timers(delta):
-	if next_rad_to_take != 0:
-		current_step_rad_time += delta
-		if current_step_rad_time >= step_rad_time:
-			current_step_rad_time = 0
-			if next_rad_to_take > 0:
-				add_radiation(1)
-			else:
-				remove_radiation(-1)
-	
 	if !can_shoot:
 		current_fire_rate += delta
 		if current_fire_rate >= current_weapon.fire_rate:
@@ -162,19 +146,6 @@ func handle_timers(delta):
 		else:
 			reload_control.show()
 		reload_bar.value = current_reloading / current_weapon.reload_time * 100
-		
-	if last_time_rads > 0:
-		if rads_warning_show >= 0.25:
-			rads_warning_show = 0
-			if warning_rad.visible:
-				warning_rad.hide()
-			else:
-				warning_rad.show()
-		rads_warning_show += delta
-		last_time_rads -= delta
-		if last_time_rads <= 0:
-			last_time_rads = 0
-			warning_rad.hide()
 
 func start_reload():
 	reloading = true
@@ -354,30 +325,6 @@ func _on_close_quest_panel_button_pressed():
 	QuestManager._set_quest_panel_visibility(false)
 	can_move = true
 	is_interacting = false
-
-func add_radiation(amount : int):
-	radiation += amount
-	if radiation > health_max:
-		radiation = health_max
-	if health > health_max - radiation:
-		set_health(health_max - radiation)
-	radiation_progress_bar.value = radiation as float / radiation_max * 100
-	last_time_rads = time_to_show_rads_warning
-
-func remove_radiation(amount : int):
-	radiation -= amount
-	if radiation < 0:
-		radiation = 0
-	radiation_progress_bar.value = radiation as float / radiation_max* 100
-
-func set_radiation_to_take(amount : int, step : float):
-	next_rad_to_take = amount
-	step_rad_time = step
-	if amount > 0:
-		rad_label.set_text("Rads (" + str(next_rad_to_take) + "/s)")
-	else:
-		rad_label.set_text("Rads")
-	pass
 
 func set_health(amount : int):
 	health = amount

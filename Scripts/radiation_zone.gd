@@ -17,16 +17,16 @@ func _process(delta):
 		for step in range(0,rad_per_seconds,1):
 			if dist <= steps + steps * step:
 				if !heal:
-					player.set_radiation_to_take(rad_per_seconds - step, 1 / (rad_per_seconds as float - step))
+					RadiationManager.set_radiation_to_take(rad_per_seconds - step, 1 / (rad_per_seconds as float - step))
 				else:
-					player.set_radiation_to_take(-rad_per_seconds + step, 1 / (rad_per_seconds as float - step))
+					RadiationManager.set_radiation_to_take(-rad_per_seconds + step, 1 / (rad_per_seconds as float - step))
 				break
 
 func _on_body_entered(body):
-	if body.has_method("player"):
+	if body.has_method("player") && body.player_id == MultiplayerManager.local_id:
 		players.push_back(body)
 
 func _on_body_exited(body):
-	if body.has_method("player"):
-		body.set_radiation_to_take(0, 0)
+	if body.has_method("player") && body.player_id == MultiplayerManager.local_id:
+		RadiationManager.set_radiation_to_take(0, 0)
 		players.erase(body)
