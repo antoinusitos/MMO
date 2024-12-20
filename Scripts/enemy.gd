@@ -26,18 +26,14 @@ func _process(delta):
 
 @rpc
 func test_spawn():
-	print("test spawn")
 	var pickup_inst = pickup.instantiate()
 	_players_spawn_node.add_child(pickup_inst, true)
 	pickup_inst.position = position
 
 func die():
-	print("die")
 	queue_free()
 
 func take_damage(sender_id, damage):
-	print("multiplayer.is_server()" + str(multiplayer.is_server()))
-	
 	_health -= damage
 	if _health > 0:
 		return

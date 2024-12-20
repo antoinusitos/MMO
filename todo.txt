@@ -1,9 +1,17 @@
-inventory ui
-add more items
-radio
-sync players when client arrive
-rework ammo display
-ui manager
-map
+SYSTEMS:
+	radio
+	sync players when client arrive
+	rework ammo display
+	ui manager
+	link ammo to inventory
+	map
+	link xp to level (level 1 = x XP, level 2 = y XP, level 3 = 0 XP)
+	narration
+	rads sound
+	handle death
 
-TEST with 2 clients
+LATER :
+	TEST with 2 clients
+	add more items
+	add more quests
+	add more ennemies

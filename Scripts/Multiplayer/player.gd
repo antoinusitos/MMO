@@ -27,6 +27,8 @@ const SPEED = 150.0
 
 @onready var panel_inventory = $CanvasLayer/Control/PanelInventory
 @onready var inventory_container = $CanvasLayer/Control/PanelInventory/Inventory
+@export var inventory_item_ui : PackedScene
+@onready var grid_container = $CanvasLayer/Control/PanelInventory/GridContainer
 
 @onready var panel_stats = $CanvasLayer/Control/PanelStats
 @onready var name_stat = $CanvasLayer/Control/PanelStats/NameStat
@@ -273,6 +275,15 @@ func handle_inventory():
 	panel_inventory.visible = !panel_inventory.visible
 	is_interacting = panel_inventory.visible
 	if panel_inventory.visible:
+		grid_container
+		for item in grid_container.get_children():
+			item.queue_free()
+		for item in inventory:
+			var item_ui = inventory_item_ui.instantiate()
+			item_ui.get_node("Label").set_text(str(item["item_number"]))
+			item_ui.get_node("Name").set_text(item["item_name"])
+			grid_container.add_child(item_ui)
+			
 		for text in inventory_container.get_children():
 			text.queue_free()
 		for item in inventory:
@@ -341,7 +352,6 @@ func server_shoot(sender_id : int):
 			client_play_weapon_anim(sender_id)
 	var hit = current_weapon.get_node("./RayCast2D").get_collider()
 	if hit && hit.has_method("take_damage"):
-		print(hit.name)
 		if hit.take_damage(sender_id, current_weapon.damage):
 			if multiplayer.is_server():
 				receive_XP(hit._xp_dealt)
@@ -355,9 +365,7 @@ func _pickup_object(item_id):
 			QuestManager._on_item_picked(item_id, 1)
 			return
 	
-	var new_item = {}
-	new_item["item_number"] = 1
-	new_item["item_id"] = item_id
+	var new_item = ItemManager.get_item(item_id)
 	inventory.append(new_item)
 	QuestManager._on_item_picked(item_id, 1)
 
