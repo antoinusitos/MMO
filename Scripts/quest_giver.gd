@@ -1,17 +1,10 @@
 extends StaticBody2D
 
 @export var step : int = 0
-@export var item_needed : int = 5
-@export var item_id_needed : int = 0
 @export var xp_rewarded : int = 50
+@export var quest_id : int = 0
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+var quest : Dictionary
 
 func _on_player_enter(body):
 	if body.has_method("player") && MultiplayerManager.local_id == body.player_id:
@@ -26,22 +19,22 @@ func _on_area_2d_body_exited(body):
 func _interact(player):
 	print("step %s" % str(step))
 	if step == 0:
+		quest = QuestManager.get_quest(quest_id)
 		$Exclamation.hide()
 		$Waiting.show()
-		QuestManager.set_quest(0)
+		QuestManager.add_quest(quest_id)
 		step += 1
 	elif step == 1:
-		var item_number = player._get_item_number(1)
-		if item_number >= item_needed:
+		var item_number = player._get_item_number(quest["quest_item_needed"])
+		if item_number >= quest["quest_objective"]:
 			QuestManager._update_quest_text("good job, you have enought !")
 			print("good job, you have enought !")
 			$Waiting.hide()
 			step += 1
 			player.receive_XP(xp_rewarded)
+			QuestManager._finished_quest(quest_id)
 		else:
-			QuestManager._update_quest_text("Too bad\n" + "I need %s items" % str(item_needed))
-			print("Too bad")
-			print("I need %s items" % str(item_needed))
+			QuestManager._update_quest_text("Too bad\n" + "I need %s items" % str(quest["quest_objective"]))
 	elif step == 2:
 		QuestManager._update_quest_text("I don't have anything for you")
 		print("I don't have anything for you")

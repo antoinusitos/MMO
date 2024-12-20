@@ -16,14 +16,31 @@ const SPEED = 150.0
 @onready var quest_recap_container = $CanvasLayer/Control/QuestRecapContainer
 @onready var quest_panel = $CanvasLayer/Control/QuestPanel
 @onready var quest_text = $CanvasLayer/Control/QuestPanel/QuestText
+@onready var all_quest_panel = $CanvasLayer/Control/AllQuestPanel
+@onready var all_quest_container : VBoxContainer = $CanvasLayer/Control/AllQuestPanel/AllQuestContainer
 
-@onready var ammo_container = $CanvasLayer/Control/VBoxContainer
+@onready var ammo_container = $CanvasLayer/Control/AmmoUI
+@onready var ammo_in_stock_text = $CanvasLayer/Control/AmmoInStockText
 
 @export var direction : Vector2
 @export var move_direction : Vector2
 
 @onready var panel_inventory = $CanvasLayer/Control/PanelInventory
 @onready var inventory_container = $CanvasLayer/Control/PanelInventory/Inventory
+
+@onready var panel_stats = $CanvasLayer/Control/PanelStats
+@onready var name_stat = $CanvasLayer/Control/PanelStats/NameStat
+@onready var health_stat = $CanvasLayer/Control/PanelStats/VBoxContainer/HealthStat
+@onready var rad_stat = $CanvasLayer/Control/PanelStats/VBoxContainer/RadStat
+@onready var xp_stat = $CanvasLayer/Control/PanelStats/VBoxContainer/XPStat
+@onready var level_stat = $CanvasLayer/Control/PanelStats/VBoxContainer/LevelStat
+
+@onready var location_text = $CanvasLayer/Control/LocationText
+var showing_location : bool = false
+var showing_location_duration : float = 5
+var current_showing_location_duration : float = 0
+
+var test_network : Node
 
 var health : int = 100
 var health_max : int = 100
@@ -48,6 +65,7 @@ var ak_instantiated : Node2D
 @export var current_reloading : float = 0
 @export var ammo_prefab = preload("res://Scenes/UI/Empty_Bullet.tscn")
 @export var ammo_filled_prefab = preload("res://Scenes/UI/Filled_Bullet.tscn")
+@export var ammo_in_stock : int = 200
 
 var can_interact : bool = false
 var interact_object : Node2D
@@ -82,6 +100,7 @@ func _ready():
 		MultiplayerManager.local_id = player_id
 		QuestManager.player = self
 		RadiationManager.player = self
+		ammo_in_stock_text.set_text("Inf.")
 	else:
 		$Camera2D.enabled = false
 		canvas_layer.visible = false
@@ -114,13 +133,25 @@ func _ui_remove_ammo():
 
 func try_to_sync():
 	if not multiplayer.is_server() && not synced_players && multiplayer.get_unique_id() == player_id:
-		if MultiplayerManager.players.size() > 0:
+		if test_network == null:
+			test_network = get_tree().root.get_node("main/TestNetwork")
+		print("Trying to sync... (%s players loaded)" % str(test_network.players))
+		if test_network.players.size() > 0:
+			print("all players loaded, start sync...")
 			synced_players = true
-			for player in MultiplayerManager.players:
+			for player in test_network.players:
+				print("try to sync %s" % str(player))
 				if player != player_id:
 					get_tree().root.get_node("main/Players/" + str(player)).sync_player()
 
 func handle_timers(delta):
+	if showing_location:
+		current_showing_location_duration += delta
+		if current_showing_location_duration >= showing_location_duration:
+			current_showing_location_duration = 0
+			showing_location = false
+			location_text.hide()
+	
 	if !can_shoot:
 		current_fire_rate += delta
 		if current_fire_rate >= current_weapon.fire_rate:
@@ -141,6 +172,9 @@ func handle_timers(delta):
 			reloading = false
 			$Reload/InputFrame.hide()
 			_ui_fill_ammo()
+			if current_weapon.ammo_id != -1:
+				ammo_in_stock -= current_weapon.magazine_size - current_weapon.current_bullet_num
+				ammo_in_stock_text.set_text(str(ammo_in_stock))
 			current_weapon.current_bullet_num = current_weapon.magazine_size
 			reload_control.hide()
 		else:
@@ -172,6 +206,10 @@ func handle_input():
 		current_weapon = gun_instantiated
 		gun_index = 0
 		_ui_replace_ammo()
+		if current_weapon.ammo_id != -1:
+			ammo_in_stock_text.set_text(str(ammo_in_stock))
+		else:
+			ammo_in_stock_text.set_text("Inf.")
 		if multiplayer.is_server():
 			for player in MultiplayerManager.players:
 				rpc_id(player,"client_weapon_change", 1, 0)
@@ -185,6 +223,10 @@ func handle_input():
 		current_weapon = ak_instantiated
 		gun_index = 1
 		_ui_replace_ammo()
+		if current_weapon.ammo_id != -1:
+			ammo_in_stock_text.set_text(str(ammo_in_stock))
+		else:
+			ammo_in_stock_text.set_text("Inf.")
 		if multiplayer.is_server():
 			for player in MultiplayerManager.players:
 				rpc_id(player,"client_weapon_change", 1, 1)
@@ -206,6 +248,26 @@ func handle_input():
 			start_reload()
 	if Input.is_action_just_pressed("inventory"):
 		handle_inventory()
+	if Input.is_action_just_pressed("character_stats"):
+		handle_character_stats()
+	if Input.is_action_just_pressed("quests"):
+		handle_quests()
+
+func handle_quests():
+	all_quest_panel.visible = !all_quest_panel.visible
+	is_interacting = all_quest_panel.visible
+	if all_quest_panel.visible:
+		QuestManager.show_all_quests()
+
+func handle_character_stats():
+	panel_stats.visible = !panel_stats.visible
+	is_interacting = panel_stats.visible
+	if panel_stats.visible:
+		name_stat.set_text("Player Name")
+		health_stat.set_text("Health : " + str(health) + "/" + str(health_max))
+		rad_stat.set_text("Radiation : " + str(radiation) + "/" + str(radiation_max))
+		xp_stat.set_text("XP : " + str(xp) + "/" + str(xp_max))
+		level_stat.set_text("Level : " + str(level))
 
 func handle_inventory():
 	panel_inventory.visible = !panel_inventory.visible
@@ -290,12 +352,14 @@ func _pickup_object(item_id):
 	for item in inventory:
 		if item["item_id"] == item_id :
 			item["item_number"] += 1
+			QuestManager._on_item_picked(item_id, 1)
 			return
 	
 	var new_item = {}
 	new_item["item_number"] = 1
 	new_item["item_id"] = item_id
 	inventory.append(new_item)
+	QuestManager._on_item_picked(item_id, 1)
 
 func _get_item_number(item_id):
 	for item in inventory:
@@ -318,6 +382,7 @@ func receive_XP(amount : int):
 	if xp >= xp_max:
 		xp = xp - xp_max
 		level += 1
+		xp_max *= 2
 	$CanvasLayer/Control/XPProgressBar.value = xp
 	$CanvasLayer/Control/XPText.set_text("Level %s" % level)
 
@@ -344,7 +409,8 @@ func sync_player():
 func server_weapon_change(sender_id : int, weapon_index : int):
 	gun_index = weapon_index
 	on_weapon_changed()
-	client_weapon_change(sender_id, weapon_index)
+	for player in MultiplayerManager.players:
+		rpc_id(player,"client_weapon_change", sender_id, weapon_index)
 	pass
 	
 @rpc("authority", "call_local", "reliable")
@@ -354,7 +420,6 @@ func client_weapon_change(sender_id : int, weapon_index : int):
 	pass
 
 func on_weapon_changed():
-	print("syncing weapon index " + str(gun_index))
 	if gun_index == 1:
 		if current_weapon != null:
 			remove_child(current_weapon)
@@ -372,3 +437,8 @@ func on_weapon_changed():
 func client_play_weapon_anim(sender_id : int):
 	if sender_id == player_id:
 		current_weapon.play_animation()
+
+func show_location(location_name : String):
+	location_text.show()
+	location_text.set_text("Entering : %s" % location_name)
+	showing_location = true

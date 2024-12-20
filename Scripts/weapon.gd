@@ -6,6 +6,7 @@ extends Node
 @export var current_bullet_num : int = 10
 @export var reload_time : float = 5
 @export var sound : AudioStream
+@export var ammo_id : int = 0
 
 var animation_time : float = 0.1
 var current_animation_time : float = 0

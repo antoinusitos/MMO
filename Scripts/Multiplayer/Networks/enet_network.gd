@@ -34,6 +34,8 @@ func _add_player_to_game(id : int):
 
 	_players_spawn_node.add_child(player_to_add, true)
 	
+	get_tree().root.get_node("main/TestNetwork").players.push_back(id)
+	
 	if multiplayer.is_server():
 		MultiplayerManager.players.push_back(id)
 		

@@ -8,7 +8,6 @@ func _ready():
 	_players_spawn_node = get_tree().get_current_scene().get_node("Players")
 
 func spawn_enemy():
-	print("spawn_enemy")
 	var spawned_enemy : Node = enemy_to_spawn.instantiate()
 	_players_spawn_node.add_child(spawned_enemy)
 	spawned_enemy.enemy_spawner = self
