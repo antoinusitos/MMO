@@ -9,6 +9,12 @@ SYSTEMS:
 	narration
 	rads sound
 	handle death
+	hunger
+	thirst
+	bike
+	craft
+	dodge
+	lockpick
 
 LATER :
 	TEST with 2 clients

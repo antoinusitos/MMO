@@ -11,6 +11,7 @@ func host():
 	print("Host")
 	%MultiplayerHUD.hide()
 	%SteamHUD.hide()
+	get_tree().change_scene_to_file("res://Scenes/main.tscn")
 	%NetworkManager.become_host()
 	
 func join_as_client():

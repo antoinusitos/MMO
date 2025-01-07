@@ -1,0 +1,402 @@
+[gd_scene load_steps=10 format=3 uid="uid://b2wb7861nv8uq"]
+
+[ext_resource type="Script" path="res://Scripts/ui_manager.gd" id="1_uavf1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ueisf"]
+bg_color = Color(1.51131e-05, 0.99898, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1darv"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3e82k"]
+bg_color = Color(1, 0, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f7rni"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kxymu"]
+bg_color = Color(0.941892, 0.42727, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wwj2y"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qppul"]
+bg_color = Color(0.207332, 0.468297, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7u3sd"]
+bg_color = Color(0.997933, 0.997933, 0, 1)
+
+[node name="UIManager" type="Control"]
+z_index = 99
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_uavf1")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="RadiationProgressBar" type="ProgressBar" parent="CanvasLayer/Control"]
+clip_contents = true
+layout_mode = 1
+offset_left = 86.0
+offset_top = 42.0
+offset_right = 286.0
+offset_bottom = 62.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_ueisf")
+step = 1.0
+fill_mode = 1
+show_percentage = false
+
+[node name="HPLabel" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 1
+offset_left = 10.0
+offset_top = 40.5
+offset_right = 50.0
+offset_bottom = 63.5
+text = "HP"
+
+[node name="RadLabel" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 1
+offset_left = 293.0
+offset_top = 40.5
+offset_right = 383.235
+offset_bottom = 63.5
+text = "Rads"
+
+[node name="HealthProgressBar" type="ProgressBar" parent="CanvasLayer/Control"]
+clip_contents = true
+layout_mode = 1
+offset_left = 86.0
+offset_top = 42.0
+offset_right = 286.0
+offset_bottom = 62.0
+theme_override_styles/background = SubResource("StyleBoxFlat_1darv")
+theme_override_styles/fill = SubResource("StyleBoxFlat_3e82k")
+step = 1.0
+value = 100.0
+show_percentage = false
+
+[node name="HungerMalusProgressBar" type="ProgressBar" parent="CanvasLayer/Control"]
+clip_contents = true
+offset_left = 86.0
+offset_top = 72.0
+offset_right = 286.0
+offset_bottom = 92.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_f7rni")
+step = 1.0
+fill_mode = 1
+show_percentage = false
+
+[node name="HungerLabel" type="Label" parent="CanvasLayer/Control"]
+offset_left = 10.0
+offset_top = 70.5
+offset_right = 68.0
+offset_bottom = 93.5
+text = "Hunger"
+
+[node name="HungerProgressBar" type="ProgressBar" parent="CanvasLayer/Control"]
+clip_contents = true
+offset_left = 86.0
+offset_top = 72.0
+offset_right = 286.0
+offset_bottom = 92.0
+theme_override_styles/background = SubResource("StyleBoxFlat_1darv")
+theme_override_styles/fill = SubResource("StyleBoxFlat_kxymu")
+step = 1.0
+value = 100.0
+show_percentage = false
+
+[node name="ThirstMalusProgressBar" type="ProgressBar" parent="CanvasLayer/Control"]
+clip_contents = true
+offset_left = 86.0
+offset_top = 102.0
+offset_right = 286.0
+offset_bottom = 122.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_wwj2y")
+step = 1.0
+fill_mode = 1
+show_percentage = false
+
+[node name="ThirstLabel" type="Label" parent="CanvasLayer/Control"]
+offset_left = 10.0
+offset_top = 100.5
+offset_right = 68.0
+offset_bottom = 123.5
+text = "Thirst"
+
+[node name="ThirstProgressBar" type="ProgressBar" parent="CanvasLayer/Control"]
+clip_contents = true
+offset_left = 86.0
+offset_top = 102.0
+offset_right = 286.0
+offset_bottom = 122.0
+theme_override_styles/background = SubResource("StyleBoxFlat_1darv")
+theme_override_styles/fill = SubResource("StyleBoxFlat_qppul")
+step = 1.0
+value = 100.0
+show_percentage = false
+
+[node name="XPProgressBar" type="ProgressBar" parent="CanvasLayer/Control"]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/fill = SubResource("StyleBoxFlat_7u3sd")
+step = 1.0
+show_percentage = false
+
+[node name="XPText" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 13.0
+offset_right = 64.0
+offset_bottom = 36.0
+text = "Level 1"
+
+[node name="AmmoUI" type="VBoxContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -280.0
+offset_right = 60.0
+offset_bottom = -80.0
+grow_vertical = 0
+theme_override_constants/separation = 10
+alignment = 2
+
+[node name="AmmoInStockText" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -69.0
+offset_right = 110.0
+offset_bottom = -46.0
+grow_vertical = 0
+
+[node name="QuestPanel" type="Panel" parent="CanvasLayer/Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -200.0
+offset_right = 200.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="QuestText" type="Label" parent="CanvasLayer/Control/QuestPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -46.0
+grow_horizontal = 2
+grow_vertical = 2
+autowrap_mode = 3
+
+[node name="CloseQuestPanelButton" type="Button" parent="CanvasLayer/Control/QuestPanel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -29.0
+offset_top = -31.0
+offset_right = 29.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "CLOSE"
+
+[node name="AllQuestPanel" type="Panel" parent="CanvasLayer/Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -500.0
+offset_right = 500.0
+offset_bottom = 500.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/AllQuestPanel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 42.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 30
+text = "QUESTS"
+horizontal_alignment = 1
+
+[node name="AllQuestContainer" type="VBoxContainer" parent="CanvasLayer/Control/AllQuestPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="WarningRad" type="ColorRect" parent="CanvasLayer/Control"]
+visible = false
+layout_mode = 0
+offset_left = 248.0
+offset_top = 33.0
+offset_right = 268.0
+offset_bottom = 53.0
+color = Color(1, 0.816859, 0.909463, 1)
+
+[node name="PanelInventory" type="Panel" parent="CanvasLayer/Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -200.0
+offset_right = 200.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Inventory" type="VBoxContainer" parent="CanvasLayer/Control/PanelInventory"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/PanelInventory"]
+layout_mode = 0
+offset_left = 93.0
+offset_top = -43.0
+offset_right = 262.0
+offset_bottom = -1.0
+theme_override_font_sizes/font_size = 30
+text = "INVENTORY"
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/Control/PanelInventory"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 32.0
+offset_top = 32.0
+offset_right = -1.36499
+offset_bottom = 32.21
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 80
+theme_override_constants/v_separation = 80
+columns = 5
+metadata/_edit_use_anchors_ = true
+
+[node name="QuestRecapContainer" type="VBoxContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -250.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/QuestRecapContainer"]
+layout_mode = 2
+text = "Active Quest"
+horizontal_alignment = 1
+
+[node name="PanelStats" type="Panel" parent="CanvasLayer/Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -250.0
+offset_right = 250.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NameStat" type="Label" parent="CanvasLayer/Control/PanelStats"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 30
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/PanelStats"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HealthStat" type="Label" parent="CanvasLayer/Control/PanelStats/VBoxContainer"]
+layout_mode = 2
+
+[node name="RadStat" type="Label" parent="CanvasLayer/Control/PanelStats/VBoxContainer"]
+layout_mode = 2
+
+[node name="XPStat" type="Label" parent="CanvasLayer/Control/PanelStats/VBoxContainer"]
+layout_mode = 2
+
+[node name="LevelStat" type="Label" parent="CanvasLayer/Control/PanelStats/VBoxContainer"]
+layout_mode = 2
+
+[node name="LocationText" type="Label" parent="CanvasLayer/Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 100.0
+offset_bottom = 142.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 30
+horizontal_alignment = 1
+
+[connection signal="pressed" from="CanvasLayer/Control/QuestPanel/CloseQuestPanelButton" to="." method="_on_close_quest_panel_button_pressed"]

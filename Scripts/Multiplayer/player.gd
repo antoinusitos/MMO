@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const SPEED = 150.0
+const SPEED = 100.0
 @onready var sprite_2d = $AnimatedSprite2D
 
 @onready var canvas_layer = $CanvasLayer
@@ -8,36 +8,9 @@ const SPEED = 150.0
 @onready var reload_control = $Reload
 @onready var reload_bar = $Reload/ReloadBar
 
-@onready var health_progress_bar = $CanvasLayer/Control/HealthProgressBar
-@onready var radiation_progress_bar = $CanvasLayer/Control/RadiationProgressBar
-@onready var warning_rad = $CanvasLayer/Control/WarningRad
-@onready var rad_label = $CanvasLayer/Control/RadLabel
-
-@onready var quest_recap_container = $CanvasLayer/Control/QuestRecapContainer
-@onready var quest_panel = $CanvasLayer/Control/QuestPanel
-@onready var quest_text = $CanvasLayer/Control/QuestPanel/QuestText
-@onready var all_quest_panel = $CanvasLayer/Control/AllQuestPanel
-@onready var all_quest_container : VBoxContainer = $CanvasLayer/Control/AllQuestPanel/AllQuestContainer
-
-@onready var ammo_container = $CanvasLayer/Control/AmmoUI
-@onready var ammo_in_stock_text = $CanvasLayer/Control/AmmoInStockText
-
 @export var direction : Vector2
 @export var move_direction : Vector2
 
-@onready var panel_inventory = $CanvasLayer/Control/PanelInventory
-@onready var inventory_container = $CanvasLayer/Control/PanelInventory/Inventory
-@export var inventory_item_ui : PackedScene
-@onready var grid_container = $CanvasLayer/Control/PanelInventory/GridContainer
-
-@onready var panel_stats = $CanvasLayer/Control/PanelStats
-@onready var name_stat = $CanvasLayer/Control/PanelStats/NameStat
-@onready var health_stat = $CanvasLayer/Control/PanelStats/VBoxContainer/HealthStat
-@onready var rad_stat = $CanvasLayer/Control/PanelStats/VBoxContainer/RadStat
-@onready var xp_stat = $CanvasLayer/Control/PanelStats/VBoxContainer/XPStat
-@onready var level_stat = $CanvasLayer/Control/PanelStats/VBoxContainer/LevelStat
-
-@onready var location_text = $CanvasLayer/Control/LocationText
 var showing_location : bool = false
 var showing_location_duration : float = 5
 var current_showing_location_duration : float = 0
@@ -55,6 +28,18 @@ var can_shoot : bool = true
 var current_fire_rate : float = 0
 const quick_reload_timing : float = 0.15
 var can_move : bool = true
+
+#SURVIVAL
+var hunger : int = 100
+var hunger_malus : int = 100
+var hunger_max : int = 100
+var hunger_decrease_time : float = 3.0
+var hunger_decrease_current_time : float = 0.0
+var thirst : int = 100
+var thirst_malus : int = 100
+var thirst_max : int = 100
+var thirst_decrease_time : float = 3.0
+var thirst_decrease_current_time : float = 0.0
 
 var inventory = Array([], TYPE_DICTIONARY, "", null)
 @export var current_weapon : Node2D
@@ -102,36 +87,37 @@ func _ready():
 		MultiplayerManager.local_id = player_id
 		QuestManager.player = self
 		RadiationManager.player = self
-		ammo_in_stock_text.set_text("Inf.")
+		UiManager.player = self
+		UiManager.ammo_in_stock_text.set_text("Inf.")
 	else:
 		$Camera2D.enabled = false
 		canvas_layer.visible = false
 
 func _ui_replace_ammo():
-	for ammo in ammo_container.get_child_count():
-		ammo_container.get_child(ammo).queue_free()
+	for ammo in UiManager.ammo_container.get_child_count():
+		UiManager.ammo_container.get_child(ammo).queue_free()
 	
 	for ammo in current_weapon.current_bullet_num:
 		var ammo_inst = ammo_filled_prefab.instantiate()
-		ammo_container.add_child(ammo_inst)
+		UiManager.ammo_container.add_child(ammo_inst)
 		
 	for ammo_index in range(current_weapon.magazine_size - current_weapon.current_bullet_num - 1,-1,-1):
 		var ammo_inst = ammo_prefab.instantiate()
-		ammo_container.add_child(ammo_inst)
-		ammo_container.move_child(ammo_inst, ammo_index)
+		UiManager.ammo_container.add_child(ammo_inst)
+		UiManager.ammo_container.move_child(ammo_inst, ammo_index)
 
 func _ui_fill_ammo():
 	for ammo_index in range(current_weapon.magazine_size - 1,-1,-1):
-		ammo_container.get_child(ammo_index).queue_free()
+		UiManager.ammo_container.get_child(ammo_index).queue_free()
 		var ammo_inst = ammo_filled_prefab.instantiate()
-		ammo_container.add_child(ammo_inst)
-		ammo_container.move_child(ammo_inst, ammo_index)
+		UiManager.ammo_container.add_child(ammo_inst)
+		UiManager.ammo_container.move_child(ammo_inst, ammo_index)
 
 func _ui_remove_ammo():
-	ammo_container.get_child(current_weapon.magazine_size - current_weapon.current_bullet_num - 1).queue_free()
+	UiManager.ammo_container.get_child(current_weapon.magazine_size - current_weapon.current_bullet_num - 1).queue_free()
 	var ammo_inst = ammo_prefab.instantiate()
-	ammo_container.add_child(ammo_inst)
-	ammo_container.move_child(ammo_inst, current_weapon.magazine_size - current_weapon.current_bullet_num - 1)
+	UiManager.ammo_container.add_child(ammo_inst)
+	UiManager.ammo_container.move_child(ammo_inst, current_weapon.magazine_size - current_weapon.current_bullet_num - 1)
 
 func try_to_sync():
 	if not multiplayer.is_server() && not synced_players && multiplayer.get_unique_id() == player_id:
@@ -152,7 +138,7 @@ func handle_timers(delta):
 		if current_showing_location_duration >= showing_location_duration:
 			current_showing_location_duration = 0
 			showing_location = false
-			location_text.hide()
+			UiManager.location_text.hide()
 	
 	if !can_shoot:
 		current_fire_rate += delta
@@ -176,12 +162,24 @@ func handle_timers(delta):
 			_ui_fill_ammo()
 			if current_weapon.ammo_id != -1:
 				ammo_in_stock -= current_weapon.magazine_size - current_weapon.current_bullet_num
-				ammo_in_stock_text.set_text(str(ammo_in_stock))
+				UiManager.ammo_in_stock_text.set_text(str(ammo_in_stock))
 			current_weapon.current_bullet_num = current_weapon.magazine_size
 			reload_control.hide()
 		else:
 			reload_control.show()
 		reload_bar.value = current_reloading / current_weapon.reload_time * 100
+
+	hunger_decrease_current_time += delta
+	if hunger_decrease_current_time >= hunger_decrease_time:
+		hunger_decrease_current_time = 0
+		hunger -= 1
+		UiManager.hunger_progress_bar.value = hunger
+		
+	thirst_decrease_current_time += delta
+	if thirst_decrease_current_time >= thirst_decrease_time:
+		thirst_decrease_current_time = 0
+		thirst -= 1
+		UiManager.thirst_progress_bar.value = thirst
 
 func start_reload():
 	reloading = true
@@ -209,9 +207,9 @@ func handle_input():
 		gun_index = 0
 		_ui_replace_ammo()
 		if current_weapon.ammo_id != -1:
-			ammo_in_stock_text.set_text(str(ammo_in_stock))
+			UiManager.ammo_in_stock_text.set_text(str(ammo_in_stock))
 		else:
-			ammo_in_stock_text.set_text("Inf.")
+			UiManager.ammo_in_stock_text.set_text("Inf.")
 		if multiplayer.is_server():
 			for player in MultiplayerManager.players:
 				rpc_id(player,"client_weapon_change", 1, 0)
@@ -226,9 +224,9 @@ func handle_input():
 		gun_index = 1
 		_ui_replace_ammo()
 		if current_weapon.ammo_id != -1:
-			ammo_in_stock_text.set_text(str(ammo_in_stock))
+			UiManager.ammo_in_stock_text.set_text(str(ammo_in_stock))
 		else:
-			ammo_in_stock_text.set_text("Inf.")
+			UiManager.ammo_in_stock_text.set_text("Inf.")
 		if multiplayer.is_server():
 			for player in MultiplayerManager.players:
 				rpc_id(player,"client_weapon_change", 1, 1)
@@ -256,40 +254,39 @@ func handle_input():
 		handle_quests()
 
 func handle_quests():
-	all_quest_panel.visible = !all_quest_panel.visible
-	is_interacting = all_quest_panel.visible
-	if all_quest_panel.visible:
+	UiManager.all_quest_panel.visible = !UiManager.all_quest_panel.visible
+	is_interacting = UiManager.all_quest_panel.visible
+	if UiManager.all_quest_panel.visible:
 		QuestManager.show_all_quests()
 
 func handle_character_stats():
-	panel_stats.visible = !panel_stats.visible
-	is_interacting = panel_stats.visible
-	if panel_stats.visible:
-		name_stat.set_text("Player Name")
-		health_stat.set_text("Health : " + str(health) + "/" + str(health_max))
-		rad_stat.set_text("Radiation : " + str(radiation) + "/" + str(radiation_max))
-		xp_stat.set_text("XP : " + str(xp) + "/" + str(xp_max))
-		level_stat.set_text("Level : " + str(level))
+	UiManager.panel_stats.visible = !UiManager.panel_stats.visible
+	is_interacting = UiManager.panel_stats.visible
+	if UiManager.panel_stats.visible:
+		UiManager.name_stat.set_text("Player Name")
+		UiManager.health_stat.set_text("Health : " + str(health) + "/" + str(health_max))
+		UiManager.rad_stat.set_text("Radiation : " + str(radiation) + "/" + str(radiation_max))
+		UiManager.xp_stat.set_text("XP : " + str(xp) + "/" + str(xp_max))
+		UiManager.level_stat.set_text("Level : " + str(level))
 
 func handle_inventory():
-	panel_inventory.visible = !panel_inventory.visible
-	is_interacting = panel_inventory.visible
-	if panel_inventory.visible:
-		grid_container
-		for item in grid_container.get_children():
+	UiManager.panel_inventory.visible = !UiManager.panel_inventory.visible
+	is_interacting = UiManager.panel_inventory.visible
+	if UiManager.panel_inventory.visible:
+		for item in UiManager.grid_container.get_children():
 			item.queue_free()
 		for item in inventory:
-			var item_ui = inventory_item_ui.instantiate()
+			var item_ui = UiManager.inventory_item_ui.instantiate()
 			item_ui.get_node("Label").set_text(str(item["item_number"]))
 			item_ui.get_node("Name").set_text(item["item_name"])
-			grid_container.add_child(item_ui)
+			UiManager.grid_container.add_child(item_ui)
 			
-		for text in inventory_container.get_children():
+		for text in UiManager.inventory_container.get_children():
 			text.queue_free()
 		for item in inventory:
 			var label : Label = Label.new()
 			label.set_text("id : " + str(item["item_id"]) + " x " + str(item["item_number"]))
-			inventory_container.add_child(label)
+			UiManager.inventory_container.add_child(label)
 
 func _process(delta):
 	try_to_sync()
@@ -394,18 +391,13 @@ func receive_XP(amount : int):
 	$CanvasLayer/Control/XPProgressBar.value = xp
 	$CanvasLayer/Control/XPText.set_text("Level %s" % level)
 
-func _on_close_quest_panel_button_pressed():
-	QuestManager._set_quest_panel_visibility(false)
-	can_move = true
-	is_interacting = false
-
 func set_health(amount : int):
 	health = amount
 	if health < 0:
 		health = 0
 	elif health > health_max:
 		health = health_max
-	health_progress_bar.value = health as float / health_max * 100
+	UiManager.health_progress_bar.value = health as float / health_max * 100
 	if health == 0:
 		print("DEATH")
 
@@ -447,6 +439,6 @@ func client_play_weapon_anim(sender_id : int):
 		current_weapon.play_animation()
 
 func show_location(location_name : String):
-	location_text.show()
-	location_text.set_text("Entering : %s" % location_name)
+	UiManager.location_text.show()
+	UiManager.location_text.set_text("Entering : %s" % location_name)
 	showing_location = true

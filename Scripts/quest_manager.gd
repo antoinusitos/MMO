@@ -30,19 +30,19 @@ func _update_current_quest():
 	current_quest_text.set_text(quest["quest_description"] + "\n" + "(" + str(quest["quest_fill"]) + "/" + str(quest["quest_objective"]) + ")")	
 
 func _update_quest_text(text:String):
-	player.quest_text.set_text(text)
+	UiManager.quest_text.set_text(text)
 
 func _get_quest_recap(text:String):
 	current_quest_text = Label.new()
 	current_quest_text.set_text(text)
 	current_quest_text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	player.quest_recap_container.add_child(current_quest_text)
+	UiManager.quest_recap_container.add_child(current_quest_text)
 
 func _set_quest_panel_visibility(new_state : bool):
 	if new_state:
-		player.quest_panel.show()
+		UiManager.quest_panel.show()
 	else:
-		player.quest_panel.hide()
+		UiManager.quest_panel.hide()
 
 func add_quest(quest_id : int):
 	var all_quests_table : Datatable = db.get_table("quests")
@@ -70,12 +70,12 @@ func _clean_current_quest():
 	_update_current_quest()
 
 func show_all_quests():
-	if not player.all_quest_container.visible:
+	if not UiManager.all_quest_container.visible:
 		return
 	
-	if player.all_quest_container.get_child_count() > 0:
-		for index in range(0, player.all_quest_container.get_child_count(), 1):
-			player.all_quest_container.get_child(index).queue_free()
+	if UiManager.all_quest_container.get_child_count() > 0:
+		for index in range(0, UiManager.all_quest_container.get_child_count(), 1):
+			UiManager.all_quest_container.get_child(index).queue_free()
 		
 	var index : int = 0
 	for quest in quests:
@@ -85,7 +85,7 @@ func show_all_quests():
 		if quest["quest_id"] == current_quest_id:
 			active = "(Active)"
 		b.set_text(active + quest["quest_name"] + " : " + quest["quest_description"] + "(" + str(already_owned) + "/" + str(quest["quest_objective"]) + ")")
-		player.all_quest_container.add_child(b)
+		UiManager.all_quest_container.add_child(b)
 		b.connect("pressed", Callable(self, "set_current_quest").bind(quest["quest_id"]))
 		index += 1
 

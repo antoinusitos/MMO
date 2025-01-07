@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://wee5jjpvgu41"]
+[gd_scene load_steps=27 format=3 uid="uid://wee5jjpvgu41"]
 
 [ext_resource type="Script" path="res://Scripts/Multiplayer/player.gd" id="1_hb32s"]
 [ext_resource type="PackedScene" uid="uid://b4q8qwljtpi6q" path="res://Scenes/ak.tscn" id="3_rbrjc"]
@@ -7,7 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://ddvejmtuo8mtu" path="res://icon.svg" id="5_mrmgo"]
 [ext_resource type="Texture2D" uid="uid://6jw240jy3fmc" path="res://Assets/Sprites/NormalCharacter.png" id="5_o3eks"]
 [ext_resource type="PackedScene" uid="uid://cbo524uelxwvn" path="res://Scenes/gun.tscn" id="6_ulhye"]
-[ext_resource type="PackedScene" uid="uid://b8elmbktk2p8v" path="res://Scenes/UI/inventory_item_ui.tscn" id="8_86i5e"]
 [ext_resource type="AudioStream" uid="uid://be4do7b80xww1" path="res://Assets/Musics/Piotr Pacyna - Corduroy And Cheese (audio library).mp3" id="8_ertei"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_8sa75"]
@@ -135,7 +134,6 @@ bg_color = Color(0.997933, 0.997933, 0, 1)
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_hb32s")
-inventory_item_ui = ExtResource("8_86i5e")
 gun = ExtResource("6_ulhye")
 ak = ExtResource("3_rbrjc")
 reload_sound = ExtResource("4_6a8nk")
@@ -216,6 +214,7 @@ color = Color(0, 0.976471, 1, 1)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 10
+visible = false
 
 [node name="Control" type="Control" parent="CanvasLayer"]
 layout_mode = 3
