@@ -25,6 +25,7 @@ ItemManager="*res://Scenes/item_manager.tscn"
 NetworkManager="*res://Scripts/Multiplayer/Networks/network_manager.gd"
 SaveManager="*res://Scripts/save_manager.gd"
 UiManager="*res://Scenes/ui_manager.tscn"
+StatManager="*res://Scripts/stat_manager.gd"
 
 [display]
 

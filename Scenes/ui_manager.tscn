@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://b2wb7861nv8uq"]
+[gd_scene load_steps=11 format=3 uid="uid://b2wb7861nv8uq"]
 
 [ext_resource type="Script" path="res://Scripts/ui_manager.gd" id="1_uavf1"]
+[ext_resource type="PackedScene" uid="uid://b8elmbktk2p8v" path="res://Scenes/UI/inventory_item_ui.tscn" id="2_6ax5i"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ueisf"]
 bg_color = Color(1.51131e-05, 0.99898, 0, 1)
@@ -35,6 +36,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_uavf1")
+inventory_item_ui = ExtResource("2_6ax5i")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 10

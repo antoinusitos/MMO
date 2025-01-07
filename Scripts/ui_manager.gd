@@ -29,11 +29,26 @@ extends Control
 @onready var xp_stat = $CanvasLayer/Control/PanelStats/VBoxContainer/XPStat
 @onready var level_stat = $CanvasLayer/Control/PanelStats/VBoxContainer/LevelStat
 
+@onready var xp_text = $CanvasLayer/Control/XPText
+@onready var xp_progress_bar = $CanvasLayer/Control/XPProgressBar
+
 @onready var location_text = $CanvasLayer/Control/LocationText
 
 @onready var main_canvas =  $CanvasLayer
 
+var showing_location : bool = false
+var showing_location_duration : float = 5
+var current_showing_location_duration : float = 0
+
 var player : Node2D
+
+func _process(delta):
+	if showing_location:
+		current_showing_location_duration += delta
+		if current_showing_location_duration >= showing_location_duration:
+			current_showing_location_duration = 0
+			showing_location = false
+			location_text.hide()
 
 func _on_close_quest_panel_button_pressed():
 	QuestManager._set_quest_panel_visibility(false)
@@ -42,3 +57,8 @@ func _on_close_quest_panel_button_pressed():
 	
 func show_main_ui():
 	main_canvas.show()
+
+func show_location(location_name : String):
+	location_text.show()
+	location_text.set_text("Entering : %s" % location_name)
+	showing_location = true

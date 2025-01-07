@@ -13,6 +13,9 @@ var _drop_rate : float = 0.5
 var _xp_dealt : int = 1
 @export var _health : int = 100
 
+@export var gold_min : int = 5
+@export var gold_max : int = 10
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	_players_spawn_node = get_tree().get_current_scene().get_node("Players")
@@ -29,6 +32,11 @@ func test_spawn():
 	var pickup_inst = pickup.instantiate()
 	_players_spawn_node.add_child(pickup_inst, true)
 	pickup_inst.position = position
+	StatManager.player._pickup_object(pickup_inst.item_id)
+	pickup_inst.queue_free()
+	var rand = randi() % gold_max + gold_min
+	StatManager.player._pickup_object(2, rand)
+	print("lol %s" % rand)
 
 func die():
 	queue_free()
