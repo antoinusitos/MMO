@@ -32,6 +32,7 @@ func _add_player_to_game(id : int):
 	player_to_add.player_id = id
 	player_to_add.name = str(id)
 
+	_players_spawn_node = get_tree().root.get_node("main/Players")
 	_players_spawn_node.add_child(player_to_add, true)
 	
 	get_tree().root.get_node("main/TestNetwork").players.push_back(id)

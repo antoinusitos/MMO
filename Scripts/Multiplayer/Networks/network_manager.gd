@@ -9,6 +9,18 @@ var enet_network_scene := preload("res://Scenes/Multiplayer/Networks/enet_networ
 var steam_network_scene := preload("res://Scenes/Multiplayer/Networks/steam_network.tscn")
 var active_network
 
+var want_to_be_host : bool = false
+var want_to_join : bool = false
+
+func level_loaded():
+	if want_to_be_host:
+		want_to_be_host = false
+		become_host()
+	
+	if want_to_join:
+		want_to_join = false
+		join_as_client()
+
 func build_multiplayer_network():
 	if not active_network:
 		print("Setting active_network")

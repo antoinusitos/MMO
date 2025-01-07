@@ -6,14 +6,16 @@ func _ready():
 	if OS.has_feature("dedicated_server"):
 		print("Starting Dedicated Server")
 		#_remove_single_player()
-		%NetworkManager.become_host(true)
+		NetworkManager.become_host(true)
+	
+	NetworkManager.level_loaded()
 
 func host():
 	print("Host")
 	#_remove_single_player()
 	%MultiplayerHUD.hide()
 	%SteamHUD.hide()
-	%NetworkManager.become_host()
+	NetworkManager.become_host()
 	
 func join_as_client():
 	print("Join as Client")
@@ -25,18 +27,18 @@ func use_steam():
 	%SteamHUD.show()
 	SteamManager.initialize_steam()
 	Steam.lobby_match_list.connect(_on_lobby_match_list)
-	%NetworkManager.active_network_type = %NetworkManager.MULTIPLAYER_NETWORK_TYPE.STEAM
+	NetworkManager.active_network_type = NetworkManager.MULTIPLAYER_NETWORK_TYPE.STEAM
 
 func list_steam_lobbies():
 	print("List Steam Lobbies")
-	%NetworkManager.list_lobbies()
+	NetworkManager.list_lobbies()
 
 func join_lobby(lobby_id = 0):
 	print("Joining Lobby %s" % lobby_id)
 	#_remove_single_player()
 	%MultiplayerHUD.hide()
 	%SteamHUD.hide()
-	%NetworkManager.join_as_client(lobby_id)
+	NetworkManager.join_as_client(lobby_id)
 
 func _on_lobby_match_list(lobbies : Array):
 	print("On lobby match list")

@@ -5,14 +5,14 @@ var lobby_id = 0
 func _ready():
 	if OS.has_feature("dedicated_server"):
 		print("Starting Dedicated Server")
-		%NetworkManager.become_host(true)
+		NetworkManager.become_host(true)
 
 func host():
 	print("Host")
 	%MultiplayerHUD.hide()
 	%SteamHUD.hide()
+	NetworkManager.want_to_be_host = true
 	get_tree().change_scene_to_file("res://Scenes/main.tscn")
-	%NetworkManager.become_host()
 	
 func join_as_client():
 	print("Join as Client")
@@ -20,21 +20,21 @@ func join_as_client():
 
 func use_steam():
 	print("Using Steam")
-	%MultiplayerHUD.hide()
 	%SteamHUD.show()
 	SteamManager.initialize_steam()
 	Steam.lobby_match_list.connect(_on_lobby_match_list)
-	%NetworkManager.active_network_type = %NetworkManager.MULTIPLAYER_NETWORK_TYPE.STEAM
+	NetworkManager.active_network_type = NetworkManager.MULTIPLAYER_NETWORK_TYPE.STEAM
 
 func list_steam_lobbies():
 	print("List Steam Lobbies")
-	%NetworkManager.list_lobbies()
+	NetworkManager.list_lobbies()
 
 func join_lobby(lobby_id = 0):
 	print("Joining Lobby %s" % lobby_id)
 	%MultiplayerHUD.hide()
 	%SteamHUD.hide()
-	%NetworkManager.join_as_client(lobby_id)
+	NetworkManager.want_to_join = true
+	get_tree().change_scene_to_file("res://Scenes/main.tscn")
 
 func _on_lobby_match_list(lobbies : Array):
 	print("On lobby match list")
@@ -58,3 +58,5 @@ func _on_lobby_match_list(lobbies : Array):
 			
 			$SteamHUD/Panel/Lobbies/VBoxContainer.add_child(lobby_button)
 		
+func _on_quit_pressed():
+	get_tree().quit()

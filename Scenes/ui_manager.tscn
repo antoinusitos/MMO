@@ -91,6 +91,7 @@ show_percentage = false
 
 [node name="HungerMalusProgressBar" type="ProgressBar" parent="CanvasLayer/Control"]
 clip_contents = true
+layout_mode = 0
 offset_left = 86.0
 offset_top = 72.0
 offset_right = 286.0
@@ -101,6 +102,7 @@ fill_mode = 1
 show_percentage = false
 
 [node name="HungerLabel" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 0
 offset_left = 10.0
 offset_top = 70.5
 offset_right = 68.0
@@ -109,6 +111,7 @@ text = "Hunger"
 
 [node name="HungerProgressBar" type="ProgressBar" parent="CanvasLayer/Control"]
 clip_contents = true
+layout_mode = 0
 offset_left = 86.0
 offset_top = 72.0
 offset_right = 286.0
@@ -121,6 +124,7 @@ show_percentage = false
 
 [node name="ThirstMalusProgressBar" type="ProgressBar" parent="CanvasLayer/Control"]
 clip_contents = true
+layout_mode = 0
 offset_left = 86.0
 offset_top = 102.0
 offset_right = 286.0
@@ -131,6 +135,7 @@ fill_mode = 1
 show_percentage = false
 
 [node name="ThirstLabel" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 0
 offset_left = 10.0
 offset_top = 100.5
 offset_right = 68.0
@@ -139,6 +144,7 @@ text = "Thirst"
 
 [node name="ThirstProgressBar" type="ProgressBar" parent="CanvasLayer/Control"]
 clip_contents = true
+layout_mode = 0
 offset_left = 86.0
 offset_top = 102.0
 offset_right = 286.0

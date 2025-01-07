@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://dtwpvq2xoh7fa"]
+[gd_scene load_steps=2 format=3 uid="uid://dtwpvq2xoh7fa"]
 
 [ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_h1pgn"]
-[ext_resource type="Script" path="res://Scripts/Multiplayer/Networks/network_manager.gd" id="2_w46hr"]
 
 [node name="MainMenu" type="Node"]
 script = ExtResource("1_h1pgn")
@@ -62,6 +61,11 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 8
 text = "Use Steam"
 
+[node name="Quit" type="Button" parent="CanvasLayer/Control/MultiplayerHUD/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Quit"
+
 [node name="SteamHUD" type="Control" parent="CanvasLayer/Control"]
 unique_name_in_owner = true
 visible = false
@@ -71,9 +75,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -60.0
+offset_left = 204.0
 offset_top = -60.0
-offset_right = 60.0
+offset_right = 324.0
 offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -131,12 +135,9 @@ grow_horizontal = 2
 theme_override_font_sizes/font_size = 101
 text = "Last Day On Earth"
 
-[node name="NetworkManager" type="Node" parent="."]
-unique_name_in_owner = true
-script = ExtResource("2_w46hr")
-
 [connection signal="pressed" from="CanvasLayer/Control/MultiplayerHUD/Panel/VBoxContainer/Host" to="." method="host"]
 [connection signal="pressed" from="CanvasLayer/Control/MultiplayerHUD/Panel/VBoxContainer/Join" to="." method="join_as_client"]
 [connection signal="pressed" from="CanvasLayer/Control/MultiplayerHUD/Panel/VBoxContainer/UseSteam" to="." method="use_steam"]
+[connection signal="pressed" from="CanvasLayer/Control/MultiplayerHUD/Panel/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/SteamHUD/Panel/Options/HostP2PGames" to="." method="host"]
 [connection signal="pressed" from="CanvasLayer/Control/SteamHUD/Panel/Options/ListLobbies" to="." method="list_steam_lobbies"]
