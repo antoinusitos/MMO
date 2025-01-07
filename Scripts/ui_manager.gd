@@ -31,9 +31,14 @@ extends Control
 
 @onready var location_text = $CanvasLayer/Control/LocationText
 
+@onready var main_canvas =  $CanvasLayer
+
 var player : Node2D
 
 func _on_close_quest_panel_button_pressed():
 	QuestManager._set_quest_panel_visibility(false)
 	player.can_move = true
 	player.is_interacting = false
+	
+func show_main_ui():
+	main_canvas.show()

@@ -88,7 +88,9 @@ func _ready():
 		QuestManager.player = self
 		RadiationManager.player = self
 		UiManager.player = self
+		UiManager.show_main_ui()
 		UiManager.ammo_in_stock_text.set_text("Inf.")
+		SaveManager.player = self
 	else:
 		$Camera2D.enabled = false
 		canvas_layer.visible = false

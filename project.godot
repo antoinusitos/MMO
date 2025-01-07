@@ -23,6 +23,7 @@ QuestManager="*res://Scripts/quest_manager.gd"
 RadiationManager="*res://Scripts/radiation_manager.gd"
 ItemManager="*res://Scenes/item_manager.tscn"
 NetworkManager="*res://Scripts/Multiplayer/Networks/network_manager.gd"
+SaveManager="*res://Scripts/save_manager.gd"
 UiManager="*res://Scenes/ui_manager.tscn"
 
 [display]
